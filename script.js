@@ -40,11 +40,12 @@ document.getElementById('schedule-form').addEventListener('submit', function(eve
         // Формируем имя папки и файла на основе выбранной даты и группы
         const formattedDate = date.split('-').join('-'); // Преобразуем дату в нужный формат
         const fileName = `${group}.txt`; // Имя файла
-        const folderPath = `/${formattedDate}/`; // Путь к папке
+        const folderPath = `https://kr4nas.github.io/a/${formattedDate}/`; // Путь к папке
 
         // Загружаем расписание
         fetch(folderPath + fileName)
             .then(response => {
+                console.log('Response status:', response.status); // Выводим статус ответа
                 if (!response.ok) {
                     throw new Error('Сеть не в порядке');
                 }
@@ -55,6 +56,7 @@ document.getElementById('schedule-form').addEventListener('submit', function(eve
                 document.getElementById('schedule').innerText = `Расписание для ${group} на ${date}:\n${data}`;
             })
             .catch(error => {
+                console.error('Ошибка:', error); // Выводим ошибку в консоль
                 document.getElementById('schedule').innerText = 'Ошибка загрузки расписания';
             });
     } else {
