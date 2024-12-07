@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>УИПК</title>
+</head>
+<body>
+    <h2>Государственное профессиональное образовательное учреждение Ярославской области Угличский индустриально-педагогический колледж</h2>
+    <div class="container">
+        <img src="https://gou-uipk.edu.yar.ru/raznoe/logotip99999_w320_h210.png" alt="Логотип колледжа">
+        <div class="auth-container">
+            <form id="auth-form" autocomplete="off">
+                <p>
+                    <label for="username">Логин:</label>
+                    <input type="text" id="username" required>
+                </p>
+                <p>
+                    <label for="password">Пароль:</label>
+                    <input type="password" id="password" required>
+                </p>
+                <p>
+                    <button type="submit">Авторизоваться</button>
+                </p>
+            </form>
+        </div>
+    </div>
+    <main>
+        <form id="schedule-form">
+            <p>
+                <label for="c">Выберите курс:</label>
+                <select id="c">
+                    <option value="">Выберите курс</option>
+                    <option value="c1">1 курс</option>
+                    <option value="c2">2 курс</option>
+                    <option value="c3">3 курс</option>
+                    <option value="c4">4 курс</option>
+                    <option value="c5">5 курс</option>
+                </select>
+            </p>
+            <p>
+                <label for="g">Выберите группу:</label>
+                <select id="g">
+                    <option value="">Выберите группу</option>
+                </select>
+            </p>
+            <p>
+                <label for="date">Выберите дату:</label>
+                <input type="date" id="date" required>
+            </p>
+            <p>
+                <button type="submit">Показать расписание</button>   
+            </p>
+        </form>
+    </main>
+    <div id="schedule"></div>
+    <script src="script.js"></script>
+</body>
+</html>

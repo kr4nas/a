@@ -1,0 +1,61 @@
+body {
+    font-size: large;
+    white-space: normal;
+    text-align: center;
+    background-color: #cbecfc; /* Светлый фон */
+    color: #454545; /* Цвет текста */
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('https://i.pinimg.com/originals/d2/e7/10/d2e71040b54ca8112116de074d29520b.jpg'); /* Замените на вашу ссылку */
+    background-size: cover; /* Масштабирует изображение, чтобы оно полностью заполнило фон */
+    background-position: center;
+    background-repeat: no-repeat; /* Не повторяет изображение */
+}
+h2 {
+    color: #54c4fc; /* цвет для заголовка */
+}
+.container {
+    display: flex; /* Используем flexbox для расположения элементов */
+    justify-content: center; /* Центрируем содержимое */
+    align-items: center; /* Выравниваем по центру по вертикали */
+    margin: 20px; /* Отступы вокруг контейнера */
+}
+
+img {
+    max-width: 100%; /* Адаптивное изображение */
+    height: auto;
+}
+.auth-container {
+    background-color: #cbecfc; /* Светло-голубой фон для формы авторизации */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+main {
+    background-color: #c1e4fc; /* фон для формы */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 600px; /* Максимальная ширина формы */
+}
+select, input[type="date"], button {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #69c8fb; /* Цвет рамки */
+}
+button {
+    background-color: #2eadfa; /* цвет кнопки */
+    color: #fafbfc; /* текст на кнопке */
+    cursor: pointer;
+}
+button:hover {
+    background-color: #54c4fc; /* при наведении */
+}
+#schedule {
+    margin-top: 20px;
+    font-size: large;
+    color: #69c8fb; /* для расписания */
+}
