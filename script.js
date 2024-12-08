@@ -80,15 +80,12 @@ scheduleForm.addEventListener('submit', function(event) {
 
     // Проверка на наличие выбранной группы и даты
     if (group && date) {
-        // Формируем имя папки и файла на основе выбранной даты и группы
-        const formattedDate = date.split('-').join('-'); // Преобразуем дату в нужный формат
-        const fileName = `${group}.txt`; // Имя файла
-        const folderPath = `https://kr4nas.github.io/a/${formattedDate}/`; // Путь к папке
+        // Формируем URL для получения расписания
+        const url = `https://a-dos0e5l9m-kr4nas-projects.vercel.app/schedule/${group}/${date}`;
 
         // Загружаем расписание
-        fetch(folderPath + fileName)
+        fetch(url)
             .then(response => {
-                console.log('Response status:', response.status); // Выводим статус ответа
                 if (!response.ok) {
                     throw new Error('Сеть не в порядке');
                 }
@@ -99,11 +96,10 @@ scheduleForm.addEventListener('submit', function(event) {
                 document.getElementById('schedule').innerText = `Расписание для ${group} на ${date}:\n${data}`;
             })
             .catch(error => {
-                console.error('Ошибка:', error); // Выводим ошибку в консоль
+                console.error('Ошибка:', error);
                 document.getElementById('schedule').innerText = 'Ошибка загрузки расписания';
             });
     } else {
-        // Если не выбраны группа или дата, выводим сообщение
         document.getElementById('schedule').innerText = 'Пожалуйста, выберите группу и дату.';
     }
 });
@@ -120,14 +116,29 @@ saveScheduleButton.addEventListener('click', function() {
     const date = document.getElementById('date').value; // Получаем выбранную дату
 
     if (newSchedule && group && date) {
-        // Здесь вы можете реализовать логику сохранения расписания
-        // Например, отправить данные на сервер или сохранить в локальное хранилище
-        console.log(`Сохранено расписание для ${group} на ${date}:\n${newSchedule}`);
-        
-        // Скрываем форму редактирования
-        editScheduleForm.style.display = 'none';
-        editScheduleTextarea.value = ''; // Очищаем текстовое поле
-        alert('Расписание успешно сохранено!');
+        // Отправляем новое расписание на сервер
+        fetch('https://a-dos0e5l9m-kr4nas-projects.vercel.app/schedule', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ group, date, schedule: newSchedule })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка сохранения расписания');
+            }
+            return response.text();
+        })
+        .then(message => {
+            alert(message);
+            editScheduleForm.style.display = 'none';
+            editScheduleTextarea.value = ''; // Очищаем текстовое поле
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            alert('Ошибка сохранения расписания');
+        });
     } else {
         alert('Пожалуйста, заполните все поля.');
     }
