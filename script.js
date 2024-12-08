@@ -29,38 +29,84 @@ courseSelect.addEventListener('change', function() {
     }
 });
 
+// Обработчик отправки формы авторизации
+document.getElementById('auth-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    // Проверка логина и пароля
+    if (username === 'логин' && password === 'пароль') {
+        document.getElementById('auth-message').style.display = 'block'; // Показываем сообщение об успешной авторизации
+        document.getElementById('edit-button').style.display = 'block'; // Показываем кнопку редактирования
+    } else {
+        alert('Неверный логин или пароль');
+    }
+});
+
 // Обработчик отправки формы расписания
 document.getElementById('schedule-form').addEventListener('submit', function(event) {
     event.preventDefault();
-    const group = groupSelect.value; // Получаем выбранную группу
-    const date = document.getElementById('date').value; // Получаем выбранную дату
+    const group = groupSelect.value;
+    const date = document.getElementById('date').value;
 
-    // Проверка на наличие выбранной группы и даты
-    if (group && date) {
-        // Формируем имя папки и файла на основе выбранной даты и группы
-        const formattedDate = date.split('-').join('-'); // Преобразуем дату в нужный формат
-        const fileName = `${group}.txt`; // Имя файла
-        const folderPath = `https://kr4nas.github.io/a/${formattedDate}/`; // Путь к папке
-
-        // Загружаем расписание
-        fetch(folderPath + fileName)
-            .then(response => {
-                console.log('Response status:', response.status); // Выводим статус ответа
-                if (!response.ok) {
-                    throw new Error('Сеть не в порядке');
-                }
-                return response.text();
-            })
-            .then(data => {
-                // Отображаем расписание
-                document.getElementById('schedule').innerText = `Расписание для ${group} на ${date}:\n${data}`;
-            })
-            .catch(error => {
-                console.error('Ошибка:', error); // Выводим ошибку в консоль
-                document.getElementById('schedule').innerText = 'Ошибка загрузки расписания';
-            });
-    } else {
-        // Если не выбраны группа или дата, выводим сообщение
-        document.getElementById('schedule').innerText = 'Пожалуйста, выберите группу и дату.';
+    if (!group || !date) {
+        alert('Пожалуйста, выберите группу и дату.');
+        return;
     }
+
+    // Запрос на получение расписания
+    fetch(`/get-schedule?group=${group}&date=${date}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка при получении расписания');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const scheduleDiv = document.getElementById('schedule');
+            scheduleDiv.innerHTML = ''; // Очищаем предыдущее расписание
+
+            // Отображаем расписание
+            const scheduleText = data.schedule || 'Расписание не найдено.';
+            scheduleDiv.innerText = scheduleText;
+
+            // Добавляем возможность редактирования
+            const editButton = document.getElementById('edit-button');
+            editButton.onclick = function() {
+                const newText = prompt('Введите новое расписание:', scheduleText);
+                if (newText !== null) {
+                    // Отправляем изменения на сервер
+                    fetch('/save-schedule', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            group: group,
+                            date: date,
+                            content: newText
+                        }),
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Ошибка при сохранении расписания');
+                        }
+                        return response.text();
+                    })
+                    .then(data => {
+                        console.log(data); // Выводим сообщение об успешном сохранении
+                        scheduleDiv.innerText = newText; // Обновляем отображаемое расписание
+                    })
+                    .catch(error => {
+                        console.error('Ошибка:', error); // Выводим ошибку в консоль
+                        alert('Ошибка при сохранении расписания');
+                    });
+                }
+            };
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            alert('Ошибка при получении расписания');
+        });
 });
