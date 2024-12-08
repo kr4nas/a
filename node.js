@@ -25,6 +25,21 @@ app.post('/save-schedule', (req, res) => {
     });
 });
 
+// Новый маршрут для получения расписания
+app.get('/get-schedule', (req, res) => {
+    const { group, date } = req.query;
+    const fileName = `${group}.txt`;
+    const filePath = `./schedules/${date}/${fileName}`;
+
+    // Читаем содержимое файла
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(404).send({ schedule: null }); // Если файл не найден, возвращаем null
+        }
+        res.send({ schedule: data });
+    });
+});
+
 app.listen(3000, () => {
     console.log('Сервер запущен на http://localhost:3000');
 });
