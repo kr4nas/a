@@ -125,10 +125,3 @@ document.getElementById('save-schedule').addEventListener('click', function() {
         alert('Пожалуйста, выберите группу и дату перед сохранением.');
     }
 });
-
-// Обработчик для кнопки "Редактировать расписание"
-document.getElementById('edit').addEventListener('click', function() {
-    document.querySelector('.edit-schedule').style.display = 'block'; // Показываем текстовое поле
-    document.getElementById('r').style.display = 'none'; // Скрываем область с расписанием
-    document.getElementById('r-form').style.display = 'none'; // Скрываем форму для показа расписания
-});
