@@ -4,12 +4,13 @@ body {
     text-align: center;
     background-color: #cbecfc; /* Светлый фон */
     color: #454545; /* Цвет текста */
-    margin: 1%;
+    padding: 2%;
+    margin: 2%;
     font-family: candara, sans-serif;
     background-image: url('https://i.pinimg.com/originals/d2/e7/10/d2e71040b54ca8112116de074d29520b.jpg'); 
     background-size: cover; /* Масштабирует изображение, чтобы оно полностью заполнило фон */
     background-position: center;
-    background-repeat: no-repeat; /* Не повторяет изображение */
+    background-repeat: no-repeat;
 }
 
 .a {
@@ -20,7 +21,7 @@ body {
     color: #54c4fc;
 }
 .a img {
-    max-width: 20%; /* Ограничение ширины картинки */
+    max-width: 80%; /* Ограничение ширины картинки */
     border-radius: 4%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-right: 5%; /* Отступ между картинкой и текстом */
@@ -32,7 +33,7 @@ main {
     border-radius: 3%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 2% auto;
-    max-width: 40%; /* Максимальная ширина формы */
+    max-width: 80%; /* Максимальная ширина формы */
 }
 select, input[type="date"], button {
     padding: 10px;
@@ -59,12 +60,11 @@ button:hover {
     border-radius: 3%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 2% auto;
-    max-width: 30%; /* Максимальная ширина формы */
+    max-width: 80%; /* Максимальная ширина формы */
     margin-top: 2%;
     font-size: large;
     color: #69c8fb; /* для расписания */
 }
-
 
 
 .container {
