@@ -18,7 +18,6 @@ document.getElementById('exit').addEventListener('click', function() {
     window.location.reload();
 });
 
-
 const courseSelect = document.getElementById('c');
 const groupSelect = document.getElementById('g');
 const groups = {
@@ -93,23 +92,19 @@ document.getElementById('edit').addEventListener('click', function() {
 });
 
 // Обработчик для кнопки "Сохранить изменения"
-document.getElementById('save-schedule').addEventListener('click', function() {
-    const editedSchedule = document.getElementById('schedule-edit').value; // Получаем текст из текстового поля
+document.getElementById('save-nn').addEventListener('click', function() {
+    const editedSchedule = document.getElementById('nn-edit').value; // Получаем текст из текстового поля
     const group = groupSelect.value; // Получаем выбранную группу
     const date = document.getElementById('date').value; // Получаем выбранную дату
 
     if (group && date) {
-        const formattedDate = date.split('-').join('-'); // Преобразуем дату в нужный формат
-        const fileName = `${group}.txt`; // Имя файла
-        const folderPath = `https://kr4nas.github.io/a/${formattedDate}/`; // Путь к папке
-
-        // Сохраняем изменения (это требует серверной части, чтобы перезаписать файл)
-        fetch(folderPath + fileName, {
-            method: 'PUT', // Используйте PUT или POST в зависимости от вашего сервера
+        // Отправляем запрос на сервер
+        fetch(`/nn/update_nn/${group}/${date}/`, {
+            method: 'PUT',
             headers: {
-                'Content-Type': 'text/plain'
+                'Content-Type': 'application/json'
             },
-            body: editedSchedule
+            body: JSON.stringify({ content: editedSchedule })
         })
         .then(response => {
             if (!response.ok) {
