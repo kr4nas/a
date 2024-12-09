@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>УИПК. Авторизация пользователя</title>
+</head>
+<body>
+    <div class="container">
+        <div class="auth-container">
+            <form id="auth-form" autocomplete="off">
+                <p>
+                    <label for="username">Логин:</label>
+                    <input type="text" id="username" required>
+                </p>
+                <p>
+                    <label for="password">Пароль:</label>
+                    <input type="password" id="password" required>
+                </p>
+                <p>
+                    <button type="submit">Авторизоваться</button>
+                </p>
+                <button id="back-button" onclick="goBack()">Вернуться назад</button>
+            </form>
+            
+        </div>
+    </div>
+    <div id="r"></div>
+    <script>
+        document.getElementById('auth-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Предотвращаем отправку формы
+
+            // Получаем значения логина и пароля
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Проверяем логин и пароль
+            if (username === 'абв' && password === 'абв') {
+                // Если данные верные, сохраняем состояние авторизации
+                sessionStorage.setItem('isAuthenticated', 'true');
+                // Перенаправляем на index.html
+                window.location.href = 'index.html';
+            } else {
+                // Если данные неверные, выводим сообщение об ошибке
+                alert('Неверный логин или пароль');
+            }
+        });
+        // Функция для возврата на предыдущую страницу
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+<footer class="footer">
+    Углич, 2024
+</footer>
+</html>
