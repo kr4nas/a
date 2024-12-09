@@ -4,41 +4,35 @@ body {
     text-align: center;
     background-color: #cbecfc; /* Светлый фон */
     color: #454545; /* Цвет текста */
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-image: url('https://i.pinimg.com/originals/d2/e7/10/d2e71040b54ca8112116de074d29520b.jpg'); /* Замените на вашу ссылку */
+    margin: 1%;
+    font-family: candara, sans-serif;
+    background-image: url('https://i.pinimg.com/originals/d2/e7/10/d2e71040b54ca8112116de074d29520b.jpg'); 
     background-size: cover; /* Масштабирует изображение, чтобы оно полностью заполнило фон */
     background-position: center;
     background-repeat: no-repeat; /* Не повторяет изображение */
 }
-h2 {
-    color: #54c4fc; /* цвет для заголовка */
+
+.a {
+    display: flex;
+    margin: 2% 10%;
+    text-align: left; 
+    align-items: center; /* Выравнивание по центру по вертикали */
+    color: #54c4fc;
 }
-.container {
-    display: flex; /* Используем flexbox для расположения элементов */
-    justify-content: center; /* Центрируем содержимое */
-    align-items: center; /* Выравниваем по центру по вертикали */
-    margin: 20px; /* Отступы вокруг контейнера */
+.a img {
+    max-width: 20%; /* Ограничение ширины картинки */
+    border-radius: 4%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-right: 5%; /* Отступ между картинкой и текстом */
 }
 
-img {
-    max-width: 100%; /* Адаптивное изображение */
-    height: auto;
-}
-.auth-container {
-    background-color: #cbecfc; /* Светло-голубой фон для формы авторизации */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
 main {
     background-color: #c1e4fc; /* фон для формы */
-    padding: 20px;
-    border-radius: 10px;
+    padding: 2%;
+    border-radius: 3%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: 20px auto;
-    max-width: 600px; /* Максимальная ширина формы */
+    margin: 2% auto;
+    max-width: 40%; /* Максимальная ширина формы */
 }
 select, input[type="date"], button {
     padding: 10px;
@@ -54,8 +48,34 @@ button {
 button:hover {
     background-color: #54c4fc; /* при наведении */
 }
-#schedule {
-    margin-top: 20px;
+.footer {
+    margin-top: 10%;  /* Отступ сверху */
+    margin-bottom: 3%; /* Отступ снизу */
+    text-align: center;
+}
+
+#r {
+    background-color: #c1e4fc; /* фон для формы */
+    border-radius: 3%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 2% auto;
+    max-width: 30%; /* Максимальная ширина формы */
+    margin-top: 2%;
     font-size: large;
     color: #69c8fb; /* для расписания */
+}
+
+
+
+.container {
+    display: flex; /* Используем flexbox для расположения элементов */
+    justify-content: center; /* Центрируем содержимое */
+    align-items: center; /* Выравниваем по центру по вертикали */
+    margin: 20px; /* Отступы вокруг контейнера */
+}
+.auth-container {
+    background-color: #cbecfc; /* Светло-голубой фон для формы авторизации */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }

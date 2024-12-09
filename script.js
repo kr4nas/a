@@ -1,3 +1,24 @@
+document.getElementById('auth').addEventListener('click', function() {
+    window.location.href = 'login.html';
+});
+
+// Проверяем состояние авторизации
+if (sessionStorage.getItem('isAuthenticated') === 'true') {
+    // Если пользователь авторизован, показываем кнопки выхода и редактирования
+    document.querySelector('.exit').style.display = 'block';
+    document.querySelector('.edit').style.display = 'block';
+    document.querySelector('.b').style.display = 'none'; // Скрываем кнопку авторизации
+}
+
+// Обработчик для кнопки "Выйти из профиля"
+document.getElementById('exit').addEventListener('click', function() {
+    // Удаляем информацию о авторизации
+    sessionStorage.removeItem('isAuthenticated');
+    // Перезагружаем страницу для возврата к исходному состоянию
+    window.location.reload();
+});
+
+
 const courseSelect = document.getElementById('c');
 const groupSelect = document.getElementById('g');
 const groups = {
@@ -30,7 +51,7 @@ courseSelect.addEventListener('change', function() {
 });
 
 // Обработчик отправки формы расписания
-document.getElementById('schedule-form').addEventListener('submit', function(event) {
+document.getElementById('r-form').addEventListener('submit', function(event) {
     event.preventDefault();
     const group = groupSelect.value; // Получаем выбранную группу
     const date = document.getElementById('date').value; // Получаем выбранную дату
@@ -53,14 +74,14 @@ document.getElementById('schedule-form').addEventListener('submit', function(eve
             })
             .then(data => {
                 // Отображаем расписание
-                document.getElementById('schedule').innerText = `Расписание для ${group} на ${date}:\n${data}`;
+                document.getElementById('r').innerText = `Расписание для ${group} на ${date}:\n${data}`;
             })
             .catch(error => {
                 console.error('Ошибка:', error); // Выводим ошибку в консоль
-                document.getElementById('schedule').innerText = 'Ошибка загрузки расписания';
+                document.getElementById('r').innerText = 'Ошибка загрузки расписания.';
             });
     } else {
         // Если не выбраны группа или дата, выводим сообщение
-        document.getElementById('schedule').innerText = 'Пожалуйста, выберите группу и дату.';
+        document.getElementById('r').innerText = 'Пожалуйста, выберите группу и дату.';
     }
 });
