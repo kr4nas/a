@@ -49,7 +49,13 @@ courseSelect.addEventListener('change', function() {
     }
 });
 
-// Обработчик отправки формы расписания
+// Пример функции для отображения расписания
+function showSchedule() {
+    const scheduleElement = document.getElementById('r');
+    scheduleElement.classList.toggle('visible'); // Переключаем класс 'visible'
+}
+
+// Пример вызова функции при нажатии на кнопку
 document.getElementById('r-form').addEventListener('submit', function(event) {
     event.preventDefault();
     const group = groupSelect.value; // Получаем выбранную группу
@@ -74,6 +80,7 @@ document.getElementById('r-form').addEventListener('submit', function(event) {
             .then(data => {
                 // Отображаем расписание
                 document.getElementById('r').innerText = `Расписание для ${group} на ${formattedDate}:\n${data}`;
+                showSchedule(); // Показываем расписание
             })
             .catch(error => {
                 console.error('Ошибка:', error); // Выводим ошибку в консоль
