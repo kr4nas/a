@@ -55,7 +55,7 @@ function showSchedule() {
     scheduleElement.classList.toggle('visible'); // Переключаем класс 'visible'
 }
 
-// Пример вызова функции при нажатии на кнопку
+// Обработчик отправки формы расписания
 document.getElementById('r-form').addEventListener('submit', function(event) {
     event.preventDefault();
     const group = groupSelect.value; // Получаем выбранную группу
