@@ -7,7 +7,7 @@ body {
     padding: 2%; 
     margin: 0; 
     font-family: 'Montserrat', sans-serif; 
-    background-image: url('https://static.rosuchebnik.ru/upload/iblock/83f/83f48f39cb5a7509b991de2306fc21de.jpg'); 
+    background-image: url('https://github.com/kr4nas/a/blob/main/фон_пк.jpg'); 
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
@@ -85,7 +85,7 @@ select, input[type="date"], button {
 }
 @media (max-width: 768px) {
     body {
-        background-image: url('https://raw.githubusercontent.com/kr4nas/a/refs/heads/main/background-mobile.jpg'); 
+        background-image: url('https://github.com/kr4nas/a/blob/main/фон_мобильный.jpg'); 
     }
     .a {
         flex-direction: column; 
