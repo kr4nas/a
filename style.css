@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+* {
+    font-family: 'Montserrat', sans-serif;
+}
 body {
     font-size: large;
     white-space: normal;
@@ -6,7 +9,6 @@ body {
     color: #6e6e6e; 
     padding: 2%; 
     margin: 0; 
-    font-family: 'Montserrat', sans-serif; 
     background-image: url('https://raw.githubusercontent.com/kr4nas/a/refs/heads/main/фон_пк.jpg'); 
     background-size: cover; 
     background-position: center;
