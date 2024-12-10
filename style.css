@@ -71,13 +71,13 @@ button:hover {
     padding: 15px; /* Добавлены отступы */
     overflow: hidden; /* Скрыть края, пока расписание не отображается */
     transition: max-height 0.3s ease, opacity 0.3s ease; /* Плавный переход для высоты и прозрачности */
-    max-height: 0; /* Изначально скрыто */
+    max-height: 300px; /* Установите фиксированную максимальную высоту */
     opacity: 0; /* Изначально скрыто */
+    visibility: hidden; /* Изначально скрыто */
 }
-
 #r.visible {
-    max-height: 300px; /* Установите фиксированную максимальную высоту при видимости */
     opacity: 1; /* Полная непрозрачность при видимости */
+    visibility: visible; /* Делаем элемент видимым */
 }
 .container {
     display: flex; 
