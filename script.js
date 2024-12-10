@@ -57,13 +57,13 @@ document.getElementById('r-form').addEventListener('submit', function(event) {
 
     // Проверка на наличие выбранной группы и даты
     if (group && date) {
-        // Формируем имя папки и файла на основе выбранной даты и группы
-        const formattedDate = date.split('-').join('-'); // Преобразуем дату в нужный формат
-        const fileName = `${group}.txt`; // Имя файла
-        const folderPath = `https://kr4nas.github.io/a/${formattedDate}/`; // Путь к папке
+        // Преобразуем дату в нужный формат DD.MM.YYYY
+        const [year, month, day] = date.split('-');
+        const formattedDate = `${day}.${month}.${year}`; // Новый формат даты
+        const folderPath = `https://kr4nas.github.io/a/${date}/`; // Путь к папке остается с оригинальной датой
 
         // Загружаем расписание
-        fetch(folderPath + fileName)
+        fetch(folderPath + `${group}.txt`)
             .then(response => {
                 console.log('Response status:', response.status); // Выводим статус ответа
                 if (!response.ok) {
@@ -73,7 +73,7 @@ document.getElementById('r-form').addEventListener('submit', function(event) {
             })
             .then(data => {
                 // Отображаем расписание
-                document.getElementById('r').innerText = `Расписание для ${group} на ${date}:\n${data}`;
+                document.getElementById('r').innerText = `Расписание для ${group} на ${formattedDate}:\n${data}`;
             })
             .catch(error => {
                 console.error('Ошибка:', error); // Выводим ошибку в консоль
