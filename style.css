@@ -1,15 +1,13 @@
-/* Подключение шрифта Roboto из Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 body {
     font-size: large;
     white-space: normal;
     text-align: center;
-    background-color: #e0f7fa; 
-    color: #555; 
-    padding: 2%;
+    color: #6e6e6e; 
+    padding: 2%; 
     margin: 0; 
-    font-family: 'Roboto', sans-serif; 
-    background-image: url('https://raw.githubusercontent.com/kr4nas/a/refs/heads/main/background.jpg'); 
+    font-family: 'Montserrat', sans-serif; 
+    background-image: url('https://static.rosuchebnik.ru/upload/iblock/83f/83f48f39cb5a7509b991de2306fc21de.jpg'); 
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
@@ -20,13 +18,16 @@ body {
     margin: 2% 10%;
     text-align: left; 
     align-items: center; 
-    color: #4db6ac; 
+    color: #3ca1f4; 
 }
-.a img {
-    max-width: 90%; 
-    border-radius: 10%; 
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px; 
+button {
+    background-color: #E1BEE7; 
+    color: #ffffff; 
+    cursor: pointer;
+    transition: background-color 0.3s; 
+}
+button:hover {
+    background-color: #D1A6E0; 
 }
 main {
     background-color: rgba(255, 255, 255, 0.9); 
@@ -41,44 +42,34 @@ select, input[type="date"], button {
     padding: 10px;
     margin: 10px 0;
     border-radius: 5px;
-    border: 1px solid #b2ebf2; 
+    border: 1px solid #e1bee7; 
     box-sizing: border-box; 
-}
-button {
-    background-color: #80cbc4; 
-    color: #ffffff; 
-    cursor: pointer;
-    transition: background-color 0.3s; 
-}
-button:hover {
-    background-color: #4db6ac; 
 }
 .footer {
     margin-top: 10%;  
     margin-bottom: 3%; 
     text-align: center;
-    color: #4db6ac; 
+    color: #3ca1f4;  
 }
 #r {
-    background-color: rgba(241, 248, 233, 0.9); /* Полупрозрачный светлый фон */
+    background-color:  rgba(255, 255, 255, 0.9);
     border-radius: 10px; 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 2% auto;
     max-width: 80%; 
     font-size: large;
     text-align: left;
-    color: #4db6ac; /* Светло-зеленый цвет для текста */
-    padding: 15px; /* Добавлены отступы */
-    overflow: hidden; /* Скрыть края, пока расписание не отображается */
-    transition: max-height 0.3s ease, opacity 0.3s ease; /* Плавный переход для высоты и прозрачности */
-    max-height: 300px; /* Установите фиксированную максимальную высоту */
-    opacity: 0; /* Изначально скрыто */
-    visibility: hidden; /* Изначально скрыто */
+    color: #d1c4e9; 
+    padding: 15px; 
+    overflow: hidden; 
+    transition: max-height 0.3s ease, opacity 0.3s ease; 
+    max-height: 300px; 
+    opacity: 0; 
+    visibility: hidden; 
 }
-
 #r.visible {
-    opacity: 1; /* Полная непрозрачность при видимости */
-    visibility: visible; /* Делаем элемент видимым */
+    opacity: 1; 
+    visibility: visible; 
 }
 .container {
     display: flex; 
@@ -92,7 +83,10 @@ button:hover {
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
-@media (max-width: 768px ) {
+@media (max-width: 768px) {
+    body {
+        background-image: url('https://raw.githubusercontent.com/kr4nas/a/refs/heads/main/background-mobile.jpg'); 
+    }
     .a {
         flex-direction: column; 
         align-items: center; 
@@ -110,4 +104,4 @@ button:hover {
     .container {
         flex-direction: column;
     }
-} 
+}
