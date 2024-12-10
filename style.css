@@ -1,118 +1,103 @@
 /* Подключение шрифта Roboto из Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
 body {
     font-size: large;
     white-space: normal;
     text-align: center;
-    background-color: #e0f7fa; /* Пастельный голубой */
-    color: #454545; 
+    background-color: #e0f7fa; 
+    color: #333; 
     padding: 2%;
-    margin: 0; /* Убираем отступы по умолчанию */
-    font-family: 'Roboto', sans-serif; /* Используем шрифт Roboto */
-    background-image: url('https://i.pinimg.com/originals/d2/e7/10/d2e71040b54ca8112116de074d29520b.jpg'); 
+    margin: 0; 
+    font-family: 'Roboto', sans-serif; 
+    background-image: url('https://raw.githubusercontent.com/kr4nas/a/refs/heads/main/background.jpg'); 
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
 }
-
 .a {
     display: flex;
-    flex-direction: column; /* Изменяем на колонку для мобильных */
+    flex-direction: column; 
     margin: 2% 10%;
     text-align: left; 
     align-items: center; 
-    color: #80deea; /* Пастельный голубой */
+    color: #00796b; 
 }
-
 .a img {
-    max-width: 90%; /* Увеличиваем ширину для мобильных */
-    border-radius: 10%; /* Увеличиваем радиус скругления */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px; /* Отступ снизу для мобильных */
+    max-width: 90%; 
+    border-radius: 10%; 
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); 
+    margin-bottom: 10px; 
 }
-
 main {
-    background-color: #f1f8e9; /* Пастельный кремовый */
+    background-color: rgba(255, 255, 255, 0.8); 
     padding: 2%;
-    border-radius: 10px; /* Увеличиваем радиус скругления */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; 
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     margin: 2% auto;
     max-width: 80%; 
 }
-
 select, input[type="date"], button {
-    width: 200px; /* Устанавливаем фиксированную ширину */
+    width: 200px; 
     padding: 10px;
     margin: 10px 0;
     border-radius: 5px;
-    border: 1px solid #b2ebf2; /* Пастельный голубой */
-    box-sizing: border-box; /* Учитываем отступы и границы в ширине */
+    border: 1px solid #b2ebf2; 
+    box-sizing: border-box; 
 }
-
 button {
-    background-color: #4dd0e1; /* Пастельный голубой */
-    color: #fafbfc; 
+    background-color: #009688; 
+    color: #ffffff; 
     cursor: pointer;
+    transition: background-color 0.3s; 
 }
-
 button:hover {
-    background-color: #80deea; /* Пастельный голубой */
+    background-color: #00796b; 
 }
-
 .footer {
     margin-top: 10%;  
     margin-bottom: 3%; 
     text-align: center;
+    color: #00796b; 
 }
-
 #r {
-    background-color: #f1f8e9; /* Пастельный кремовый */
-    border-radius: 10px; /* Увеличиваем радиус скругления */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.8); 
+    border-radius: 10px; 
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     margin: 2% auto;
     max-width: 80%; 
     margin-top: 2%;
     font-size: large;
     text-align: left;
-    color: #4dd0e1; /* Пастельный голубой */
+    color: #00796b; 
 }
-
 .container {
     display: flex; 
     justify-content: center; 
     align-items: center; 
     margin: 20px; 
 }
-
 .auth-container {
-    background-color: #e0f7fa; /* Пастельный голубой */
+    background-color: rgba(224, 247, 251, 0.9); 
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
-
-/* Медиа-запросы для мобильных устройств */
 @media (max-width: 768px) {
     .a {
-        flex-direction: column; /* Вертикальное расположение для мобильных */
+        flex-direction: column; 
         align-items: center; 
     }
-
     .a img {
-        max-width: 100%; /* Полная ширина для мобильных */
-        margin-bottom: 10px; /* Отступ снизу для мобильных */
+        max-width: 100%; 
+        margin-bottom: 10px; 
     }
-
     main {
-        max-width: 95%; /* Увеличиваем ширину для мобильных */
+        max-width: 95%;
     }
-
-    select, input[type ="date"], button {
-        width: 100%; /* Устанавливаем ширину 100% для мобильных */
+    select, input[type="date"], button {
+        width: 100%; 
     }
-
     .container {
-        flex-direction: column; /* Вертикальное расположение для мобильных */
+        flex-direction: column;
     }
 }
