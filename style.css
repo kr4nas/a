@@ -75,6 +75,7 @@ button:hover {
     opacity: 0; /* Изначально скрыто */
     visibility: hidden; /* Изначально скрыто */
 }
+
 #r.visible {
     opacity: 1; /* Полная непрозрачность при видимости */
     visibility: visible; /* Делаем элемент видимым */
