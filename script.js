@@ -49,10 +49,20 @@ courseSelect.addEventListener('change', function() {
     }
 });
 
-// Пример функции для отображения расписания
-function showSchedule() {
+// Получаем кнопку для показа/скрытия расписания
+const toggleScheduleButton = document.getElementById('toggle-schedule');
+
+// Функция для отображения или скрытия расписания
+function toggleSchedule() {
     const scheduleElement = document.getElementById('r');
     scheduleElement.classList.toggle('visible'); // Переключаем класс 'visible'
+
+    // Меняем текст кнопки в зависимости от состояния расписания
+    if (scheduleElement.classList.contains('visible')) {
+        toggleScheduleButton.textContent = 'Скрыть расписание'; // Если расписание показано
+    } else {
+        toggleScheduleButton.textContent = 'Показать расписание'; // Если расписание скрыто
+    }
 }
 
 // Обработчик отправки формы расписания
@@ -80,7 +90,7 @@ document.getElementById('r-form').addEventListener('submit', function(event) {
             .then(data => {
                 // Отображаем расписание
                 document.getElementById('r').innerText = `Расписание для ${group} на ${formattedDate}:\n${data}`;
-                showSchedule(); // Показываем расписание
+                toggleSchedule(); // Показываем расписание и меняем текст кнопки
             })
             .catch(error => {
                 console.error('Ошибка:', error); // Выводим ошибку в консоль
@@ -91,6 +101,9 @@ document.getElementById('r-form').addEventListener('submit', function(event) {
         document.getElementById('r').innerText = 'Пожалуйста, выберите группу и дату.';
     }
 });
+
+// Добавляем обработчик для кнопки "Показать расписание"
+toggleScheduleButton.addEventListener('click', toggleSchedule);
 
 // Обработчик для кнопки "Редактировать расписание"
 document.getElementById('edit').addEventListener('click', function() {
