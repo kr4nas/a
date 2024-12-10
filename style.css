@@ -94,6 +94,7 @@ select, input[type="date"], button {
         background-image: url('https://raw.githubusercontent.com/kr4nas/a/refs/heads/main/фон_мобильный.jpg'); 
     }
     .a {
+        font-size: 1.2em;
         flex-direction: column; 
         align-items: center; 
     }
