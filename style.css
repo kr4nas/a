@@ -14,11 +14,17 @@ body {
 }
 .a {
     display: flex;
-    flex-direction: column; 
+    flex-direction: row; 
+    align-items: center; 
     margin: 2% 10%;
     text-align: left; 
-    align-items: center; 
     color: #3ca1f4; 
+}
+.a img {
+    margin-right: 30px; 
+    border-radius: 10px; 
+    max-width: 40%; 
+    height: auto; 
 }
 button {
     background-color: #E1BEE7; 
@@ -52,18 +58,18 @@ select, input[type="date"], button {
     color: #3ca1f4;  
 }
 #r {
-    background-color:  rgba(255, 255, 255, 0.9);
-    border-radius: 10px; 
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 2% auto;
-    max-width: 80%; 
+    max-width: 80%;
     font-size: large;
     text-align: left;
-    color: #d1c4e9; 
-    padding: 15px; 
+    color: #b9afcc;
+    padding: 15px;
     overflow: hidden; 
-    transition: max-height 0.3s ease, opacity 0.3s ease; 
-    max-height: 300px; 
+    transition: opacity 0.3s ease; 
+    height: 300px; 
     opacity: 0; 
     visibility: hidden; 
 }
