@@ -1,109 +1,99 @@
+/* Подключение шрифта Roboto из Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 body {
     font-size: large;
     white-space: normal;
     text-align: center;
-    background-color: #e0f7fa; /* Пастельный голубой */
+    background-color: #e0f7fa; 
     color: #454545; 
     padding: 2%;
     margin: 0; /* Убираем отступы по умолчанию */
-    font-family: 'Candara', sans-serif;
+    font-family: 'Roboto', sans-serif; 
     background-image: url('https://i.pinimg.com/originals/d2/e7/10/d2e71040b54ca8112116de074d29520b.jpg'); 
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
 }
-
 .a {
     display: flex;
     flex-direction: column; /* Изменяем на колонку для мобильных */
     margin: 2% 10%;
     text-align: left; 
     align-items: center; 
-    color: #80deea; /* Пастельный голубой */
+    color: #80deea; 
 }
-
 .a img {
     max-width: 90%; /* Увеличиваем ширину для мобильных */
     border-radius: 10%; /* Увеличиваем радиус скругления */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px; /* Отступ снизу для мобильных */
 }
-
 main {
-    background-color: #f1f8e9; /* Пастельный кремовый */
+    background-color: #f1f8e9; 
     padding: 2%;
-    border-radius: 10px; /* Увеличиваем радиус скругления */
+    border-radius: 10px; 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 2% auto;
     max-width: 80%; 
 }
-
 select, input[type="date"], button {
+    width: 100%; 
     padding: 10px;
     margin: 10px 0;
     border-radius: 5px;
-    border: 1px solid #b2ebf2; /* Пастельный голубой */
+    border: 1px solid #b2ebf2; 
+    box-sizing: border-box; /* Учитываем отступы и границы в ширине */
 }
-
 button {
-    background-color: #4dd0e1; /* Пастельный голубой */
+    background-color: #4dd0e1; 
     color: #fafbfc; 
     cursor: pointer;
 }
-
 button:hover {
-    background-color: #80deea; /* Пастельный голубой */
+    background-color: #80deea; 
 }
-
 .footer {
     margin-top: 10%;  
     margin-bottom: 3%; 
     text-align: center;
 }
-
 #r {
-    background-color: #f1f8e9; /* Пастельный кремовый */
-    border-radius: 10px; /* Увеличиваем радиус скругления */
+    background-color: #f1f8e9; 
+    border-radius: 10px; 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 2% auto;
     max-width: 80%; 
     margin-top: 2%;
     font-size: large;
     text-align: left;
-    color: #4dd0e1; /* Пастельный голубой */
+    color: #4dd0e1; 
 }
-
 .container {
     display: flex; 
     justify-content: center; 
     align-items: center; 
     margin: 20px; 
 }
-
 .auth-container {
-    background-color: #e0f7fa; /* Пастельный голубой */
+    background-color: #e0f7fa; 
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
 /* Медиа-запросы для мобильных устройств */
 @media (max-width: 768px) {
     .a {
         flex-direction: column; /* Вертикальное расположение для мобильных */
         align-items: center; 
     }
-
     .a img {
         max-width: 100%; /* Полная ширина для мобильных */
         margin-bottom: 10px; /* Отступ снизу для мобильных */
     }
-
     main {
         max-width: 95%; /* Увеличиваем ширину для мобильных */
     }
-
     .container {
-        flex-direction: column; /* Вертикальное расположение для мобильных */
+        flex-direction: column ; /* Вертикальное расположение для мобильных */
     }
 }
