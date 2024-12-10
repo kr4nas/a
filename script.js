@@ -2,19 +2,14 @@ document.getElementById('auth').addEventListener('click', function() {
     window.location.href = 'login.html';
 });
 
-// Проверяем состояние авторизации
 if (sessionStorage.getItem('isAuthenticated') === 'true') {
-    // Если пользователь авторизован, показываем кнопки выхода и редактирования
     document.querySelector('.exit').style.display = 'block';
     document.querySelector('.edit').style.display = 'block';
-    document.querySelector('.b').style.display = 'none'; // Скрываем кнопку авторизации
+    document.querySelector('.b').style.display = 'none'; 
 }
 
-// Обработчик для кнопки "Выйти из профиля"
 document.getElementById('exit').addEventListener('click', function() {
-    // Удаляем информацию о авторизации
     sessionStorage.removeItem('isAuthenticated');
-    // Перезагружаем страницу для возврата к исходному состоянию
     window.location.reload();
 });
 
@@ -28,83 +23,66 @@ const groups = {
     c5: ['54К']
 };
 
-// Обработчик изменения курса
 courseSelect.addEventListener('change', function() {
     const selectedCourse = this.value;
-    
-    // Очистка списка групп
     groupSelect.innerHTML = '<option value="">Выберите группу</option>';
-    
     if (selectedCourse) {
-        // Получаем группы для выбранного курса
         const availableGroups = groups[selectedCourse];
-        
-        // Заполняем список групп
         availableGroups.forEach(function(group) {
             const option = document.createElement('option');
-            option.value = group; // Значение остается прежним
-            option.textContent = group; // Отображаемое значение
+            option.value = group; 
+            option.textContent = group; 
             groupSelect.appendChild(option);
         });
     }
 });
 
-// Пример функции для отображения расписания
 function showSchedule() {
     const scheduleElement = document.getElementById('r');
-    scheduleElement.classList.toggle('visible'); // Переключаем класс 'visible'
+    scheduleElement.classList.toggle('visible'); 
 }
 
-// Обработчик отправки формы расписания
 document.getElementById('r-form').addEventListener('submit', function(event) {
     event.preventDefault();
-    const group = groupSelect.value; // Получаем выбранную группу
-    const date = document.getElementById('date').value; // Получаем выбранную дату
-
-    // Проверка на наличие выбранной группы и даты
+    const group = groupSelect.value; 
+    const date = document.getElementById('date').value; 
     if (group && date) {
-        // Преобразуем дату в нужный формат DD.MM.YYYY
         const [year, month, day] = date.split('-');
-        const formattedDate = `${day}.${month}.${year}`; // Новый формат даты
-        const folderPath = `https://kr4nas.github.io/a/${date}/`; // Путь к папке остается с оригинальной датой
+        const formattedDate = `${day}.${month}.${year}`; 
+        const folderPath = `https://kr4nas.github.io/a/${date}/`; 
 
-        // Загружаем расписание
         fetch(folderPath + `${group}.txt`)
             .then(response => {
-                console.log('Response status:', response.status); // Выводим статус ответа
+                console.log('Response status:', response.status); 
                 if (!response.ok) {
                     throw new Error('Сеть не в порядке');
                 }
                 return response.text();
             })
             .then(data => {
-                // Отображаем расписание
                 document.getElementById('r').innerText = `Расписание для ${group} на ${formattedDate}:\n${data}`;
-                showSchedule(); // Показываем расписание
+                showSchedule(); 
             })
             .catch(error => {
-                console.error('Ошибка:', error); // Выводим ошибку в консоль
+                console.error('Ошибка:', error); 
                 document.getElementById('r').innerText = 'Ошибка загрузки расписания.';
             });
     } else {
-        // Если не выбраны группа или дата, выводим сообщение
         document.getElementById('r').innerText = 'Пожалуйста, выберите группу и дату.';
     }
 });
-// Обработчик для кнопки "Редактировать расписание"
+
 document.getElementById('edit').addEventListener('click', function() {
-    document.querySelector('.edit-schedule').style.display = 'block'; // Показываем текстовое поле
-    document.getElementById('r').style.display = 'none'; // Скрываем область с расписанием
+    document.querySelector('.edit-schedule').style.display = 'block'; 
+    document.getElementById('r').style.display = 'none'; 
 });
 
-// Обработчик для кнопки "Сохранить изменения"
 document.getElementById('save-nn').addEventListener('click', function() {
-    const editedSchedule = document.getElementById('nn-edit').value; // Получаем текст из текстового поля
-    const group = groupSelect.value; // Получаем выбранную группу
-    const date = document.getElementById('date').value; // Получаем выбранную дату
+    const editedSchedule = document.getElementById('nn-edit').value;
+    const group = groupSelect.value; 
+    const date = document.getElementById('date').value; 
 
     if (group && date) {
-        // Отправляем запрос на сервер
         fetch(`/nn/update_nn/${group}/${date}/`, {
             method: 'PUT',
             headers: {

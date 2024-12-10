@@ -16,7 +16,7 @@ body {
     display: flex;
     flex-direction: row; 
     align-items: center; 
-    margin: 2% 10%;
+    margin: 2% 8%;
     text-align: left; 
     color: #3ca1f4; 
 }
@@ -31,7 +31,6 @@ button {
     color: #ffffff; 
     cursor: pointer;
     transition: background-color 0.3s; 
-    font-family: 'Montserrat', sans-serif; 
 }
 button:hover {
     background-color: #D1A6E0; 
@@ -43,7 +42,6 @@ main {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     margin: 2% auto;
     max-width: 80%; 
-    font-family: 'Montserrat', sans-serif; 
 }
 select, input[type="date"], button {
     width: 200px; 
@@ -52,7 +50,6 @@ select, input[type="date"], button {
     border-radius: 5px;
     border: 1px solid #e1bee7; 
     box-sizing: border-box; 
-    font-family: 'Montserrat', sans-serif; 
 }
 .footer {
     margin-top: 10%;  
@@ -91,7 +88,6 @@ select, input[type="date"], button {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    font-family: 'Montserrat', sans-serif; 
 }
 @media (max-width: 768px) {
     body {

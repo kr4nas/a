@@ -29,24 +29,16 @@
     <div id="r"></div>
     <script>
         document.getElementById('auth-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Предотвращаем отправку формы
-
-            // Получаем значения логина и пароля
+            event.preventDefault(); 
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-
-            // Проверяем логин и пароль
-            if (username === 'абв' && password === 'абв') {
-                // Если данные верные, сохраняем состояние авторизации
+            if (username === 'А' && password === 'А') {
                 sessionStorage.setItem('isAuthenticated', 'true');
-                // Перенаправляем на index.html
                 window.location.href = 'index.html';
             } else {
-                // Если данные неверные, выводим сообщение об ошибке
                 alert('Неверный логин или пароль');
             }
         });
-        // Функция для возврата на предыдущую страницу
         function goBack() {
             window.history.back();
         }
