@@ -1,3 +1,4 @@
+/* Подключение шрифта Roboto из Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 body {
     font-size: large;
@@ -24,7 +25,7 @@ body {
 .a img {
     max-width: 90%; 
     border-radius: 10%; 
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px; 
 }
 main {
@@ -59,7 +60,7 @@ button:hover {
     color: #4db6ac; 
 }
 #r {
-    background-color: rgba(255, 255, 255, 0.9); /* Полупрозрачный белый фон */
+    background-color: rgba(255, 255, 255, 0.9); 
     border-radius: 10px; 
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     margin: 2% auto;
@@ -69,6 +70,14 @@ button:hover {
     text-align: left;
     color: #4db6ac; 
     padding: 15px; 
+    overflow: hidden; /* Скрыть края, пока расписание не отображается */
+    transition: max-height 0.3s ease, opacity 0.3s ease; /* Плавный переход для высоты и прозрачности */
+    max-height: 0; /* Изначально скрыто */
+    opacity: 0; /* Изначально скрыто */
+}
+#r.visible {
+    max-height: 500px; 
+    opacity: 1; 
 }
 .container {
     display: flex; 
@@ -82,7 +91,7 @@ button:hover {
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
-@media (max-width: 768px) {
+@media (max-width: 768px ) {
     .a {
         flex-direction: column; 
         align-items: center; 
@@ -100,4 +109,4 @@ button:hover {
     .container {
         flex-direction: column;
     }
-}
+} 
