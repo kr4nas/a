@@ -27,7 +27,7 @@ body {
     border-radius: 10px; 
     max-width: 40%; 
     height: auto; 
-    opacity: 0.8;
+    opacity: 0.7;
     transition: opacity 0.3s;
 }
 .a img:hover {
