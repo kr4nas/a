@@ -94,7 +94,7 @@ document.getElementById('save-schedule').addEventListener('click', function() {
         schedule: updatedSchedule
     };
 
-    fetch('https://api.github.com/repos/kr4nas>/schedule-storage/actions/workflows/save-schedule.yml/dispatches', {
+    fetch('https://api.github.com/repos/kr4nas/schedule-storage/actions/workflows/save-schedule.yml/dispatches', {
         method: 'POST',
         headers: {
             'Authorization': 'token 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',
