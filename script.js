@@ -49,7 +49,7 @@ document.getElementById('r-form').addEventListener('submit', function(event) {
     if (group && date) {
         const [year, month, day] = date.split('-');
         const formattedDate = `${day}.${month}.${year}`; 
-        const folderPath = `https://kr4nas.github.io/a/${date}/`; 
+        const folderPath = `https://kr4nas.github.io/schedule-storage/a/${date}/`; 
 
         fetch(folderPath + `${group}.txt`)
             .then(response => {
