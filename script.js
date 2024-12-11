@@ -36,16 +36,16 @@ courseSelect.addEventListener('change', function() {
         });
     }
 });
-
 function showSchedule() {
     const scheduleElement = document.getElementById('r');
     scheduleElement.classList.toggle('visible'); 
 }
-
+let toggleCount = 0; 
 document.getElementById('r-form').addEventListener('submit', function(event) {
     event.preventDefault();
     const group = groupSelect.value; 
     const date = document.getElementById('date').value; 
+    const button = document.querySelector('button[type="submit"]');
     if (group && date) {
         const [year, month, day] = date.split('-');
         const formattedDate = `${day}.${month}.${year}`; 
@@ -62,6 +62,9 @@ document.getElementById('r-form').addEventListener('submit', function(event) {
             .then(data => {
                 document.getElementById('r').innerText = `Расписание для ${group} на ${formattedDate}:\n${data}`;
                 showSchedule(); 
+                
+                toggleCount++;
+                button.innerText = (toggleCount % 2 === 1) ? 'Скрыть расписание' : 'Показать расписание';
             })
             .catch(error => {
                 console.error('Ошибка:', error); 
