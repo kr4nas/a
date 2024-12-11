@@ -75,35 +75,42 @@ document.getElementById('r-form').addEventListener('submit', function(event) {
     }
 });
 
+
 document.getElementById('edit').addEventListener('click', function() {
-    document.querySelector('.edit-schedule').style.display = 'block'; 
-    document.getElementById('r').style.display = 'none'; 
+    const scheduleElement = document.getElementById('r');
+    const scheduleText = scheduleElement.innerText; // Получаем текущее расписание
+    document.getElementById('schedule-edit').value = scheduleText; // Заполняем текстовое поле
+    document.querySelector('.edit-schedule').style.display = 'block'; // Показываем текстовое поле
 });
 
-document.getElementById('save-nn').addEventListener('click', function() {
-    const editedSchedule = document.getElementById('nn-edit').value;
-    const group = groupSelect.value; 
-    const date = document.getElementById('date').value; 
+document.getElementById('save-schedule').addEventListener('click', function() {
+    const updatedSchedule = document.getElementById('schedule-edit').value;
+    const group = groupSelect.value;
+    const date = document.getElementById('date').value;
 
-    if (group && date) {
-        fetch(`/nn/update_nn/${group}/${date}/`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ content: editedSchedule })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Ошибка при сохранении файла');
-            }
-            alert('Изменения сохранены!');
-        })
-        .catch(error => {
-            console.error('Ошибка:', error);
-            alert('Ошибка при сохранении изменений.');
-        });
-    } else {
-        alert('Пожалуйста, выберите группу и дату перед сохранением.');
-    }
+    const data = {
+        date: date,
+        group: group,
+        schedule: updatedSchedule
+    };
+
+    fetch('https://api.github.com/repos/kr4nas>/schedule-storage/actions/workflows/save-schedule.yml/dispatches', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'token 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',
+            'Accept': 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('Расписание успешно сохранено.');
+        } else {
+            console.error('Ошибка при сохранении расписания.');
+        }
+    })
+    .catch(error => {
+        console.error('Ошибка:', error);
+    });
 });
