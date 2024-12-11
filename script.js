@@ -49,7 +49,7 @@ document.getElementById('r-form').addEventListener('submit', function(event) {
     if (group && date) {
         const [year, month, day] = date.split('-');
         const formattedDate = `${day}.${month}.${year}`; 
-        const folderPath = `https://kr4nas.github.io/schedule-storage/a/${date}/`; 
+        const folderPath = `https://kr4nas.github.io/a/${date}/`; 
 
         fetch(folderPath + `${group}.txt`)
             .then(response => {
@@ -73,44 +73,4 @@ document.getElementById('r-form').addEventListener('submit', function(event) {
     } else {
         document.getElementById('r').innerText = 'Пожалуйста, выберите группу и дату.';
     }
-});
-
-
-document.getElementById('edit').addEventListener('click', function() {
-    const scheduleElement = document.getElementById('r');
-    const scheduleText = scheduleElement.innerText; // Получаем текущее расписание
-    document.getElementById('schedule-edit').value = scheduleText; // Заполняем текстовое поле
-    document.querySelector('.edit-schedule').style.display = 'block'; // Показываем текстовое поле
-});
-
-document.getElementById('save-schedule').addEventListener('click', function() {
-    const updatedSchedule = document.getElementById('schedule-edit').value;
-    const group = groupSelect.value;
-    const date = document.getElementById('date').value;
-
-    const data = {
-        date: date,
-        group: group,
-        schedule: updatedSchedule
-    };
-
-    fetch('https://api.github.com/repos/kr4nas/schedule-storage/actions/workflows/save-schedule.yml/dispatches', {
-        method: 'POST',
-        headers: {
-            'Authorization': 'token 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',
-            'Accept': 'application/vnd.github.v3+json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        if (response.ok) {
-            console.log('Расписание успешно сохранено.');
-        } else {
-            console.error('Ошибка при сохранении расписания.');
-        }
-    })
-    .catch(error => {
-        console.error('Ошибка:', error);
-    });
 });
