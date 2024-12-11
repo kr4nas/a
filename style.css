@@ -80,7 +80,7 @@ select, input[type="date"], button {
     color: #8da4d2;
     padding: 15px;
     overflow: hidden; 
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
     height: 300px; 
     opacity: 0; 
     visibility: hidden; 
