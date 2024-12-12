@@ -111,7 +111,7 @@ select, input[type="date"], button {
 .f label {
     margin-bottom: 5px;
 }
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     body {
         background-image: url('https://raw.githubusercontent.com/kr4nas/a/refs/heads/main/фон_мобильный.jpg'); 
     }
