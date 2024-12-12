@@ -144,11 +144,6 @@ select, input[type="date"], button {
         font-size: 0.8em;
         max-width: 90%;
     }
-    td:first-child {
-    width: 20px;
-    white-space: nowrap;
-    text-align: center;
-    }
 }
 table {
     border-collapse: collapse;
@@ -160,7 +155,7 @@ th, td {
     text-align: left;
 }
 td:first-child {
-    width: 40px;
+    width: 25px;
     white-space: nowrap;
     text-align: center;
 }
