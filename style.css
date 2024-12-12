@@ -141,7 +141,7 @@ select, input[type="date"], button {
     }
     #r {
         height: 650px; 
-        font-size: 0.9em;
+        font-size: 0.8em;
     }
 }
 table {
@@ -161,4 +161,5 @@ td:second-child {
 }
 caption {
     padding-bottom: 10px; 
+    font-weight: 600;
 }
