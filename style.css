@@ -140,7 +140,8 @@ select, input[type="date"], button {
         flex-direction: column;
     }
     #r {
-        height: 600px; 
+        height: 650px; 
+        font-size: 0.9em;
     }
 }
 table {
