@@ -81,7 +81,7 @@ select, input[type="date"], button {
     padding: 15px;
     overflow: hidden; 
     transition: opacity 0.2s ease, visibility 0.2s ease;
-    height: 400px; 
+    height: 430px; 
     opacity: 0; 
     visibility: hidden; 
 }
@@ -140,7 +140,7 @@ select, input[type="date"], button {
         flex-direction: column;
     }
     #r {
-        height: 650px; 
+        height: 680px; 
         font-size: 0.8em;
         max-width: 90%;
     }
