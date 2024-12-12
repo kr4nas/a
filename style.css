@@ -81,7 +81,7 @@ select, input[type="date"], button {
     padding: 15px;
     overflow: hidden; 
     transition: opacity 0.2s ease, visibility 0.2s ease;
-    height: 300px; 
+    height: 400px; 
     opacity: 0; 
     visibility: hidden; 
 }
@@ -140,6 +140,24 @@ select, input[type="date"], button {
         flex-direction: column;
     }
     #r {
-        height: 500px; 
+        height: 600px; 
     }
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    border: 2px solid #e4e4e4;
+    padding: 8px;
+    text-align: left;
+}
+td:first-child {
+    text-align: center;
+}
+td:second-child {
+    text-align: justify;;
+}
+caption {
+    padding-bottom: 10px; 
 }

@@ -40,6 +40,7 @@ function showSchedule() {
     const scheduleElement = document.getElementById('r');
     scheduleElement.classList.toggle('visible'); 
 }
+
 let toggleCount = 0; 
 document.getElementById('r-form').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -60,9 +61,25 @@ document.getElementById('r-form').addEventListener('submit', function(event) {
                 return response.text();
             })
             .then(data => {
-                document.getElementById('r').innerText = `Расписание для ${group} на ${formattedDate}:\n${data}`;
+                const scheduleTable = document.getElementById('r');
+                scheduleTable.innerHTML = ''; 
+                const table = document.createElement('table');
+                const caption = document.createElement('caption');
+                caption.textContent = `Расписание для ${group} на ${formattedDate}:`;
+                table.appendChild(caption);
+                const rows = data.split('\n');
+                rows.forEach((row, index) => {
+                    const tr = document.createElement('tr');
+                    const td1 = document.createElement('td');
+                    td1.textContent = index + 1; 
+                    const td2 = document.createElement('td');
+                    td2.textContent = row; 
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    table.appendChild(tr);
+                });
+                scheduleTable.appendChild(table);
                 showSchedule(); 
-                
                 toggleCount++;
                 button.innerText = (toggleCount % 2 === 1) ? 'Скрыть расписание' : 'Показать расписание';
             })
