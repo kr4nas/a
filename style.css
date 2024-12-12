@@ -116,7 +116,7 @@ select, input[type="date"], button {
         background-image: url('https://raw.githubusercontent.com/kr4nas/a/refs/heads/main/фон_мобильный.jpg'); 
     }
     .a {
-        font-size: 0.6em;
+        font-size: 0.7em;
         display: flex;
         flex-direction: column; 
         align-items: center; 
@@ -124,7 +124,7 @@ select, input[type="date"], button {
         text-align: center; 
     }
     .a img {
-        max-width: 100%; 
+        max-width: 90%; 
         margin-bottom: 5px; 
         display: block; 
         margin-left: auto; 
@@ -142,7 +142,7 @@ select, input[type="date"], button {
     #r {
         height: 650px; 
         font-size: 0.8em;
-        max-width: 95%;
+        max-width: 90%;
     }
 }
 table {
@@ -151,14 +151,11 @@ table {
 }
 th, td {
     border: 2px solid #e4e4e4;
-    padding: 8px;
+    padding: 5px;
     text-align: left;
 }
 td:first-child {
     text-align: center;
-}
-td:second-child {
-    text-align: justify;;
 }
 caption {
     padding-bottom: 10px; 
