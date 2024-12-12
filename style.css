@@ -143,6 +143,10 @@ select, input[type="date"], button {
         height: 600px; 
         font-size: 0.8em;
     }
+    caption {
+        font-size: 1em;
+    ; 
+}
 }
 table {
     border-collapse: collapse;
