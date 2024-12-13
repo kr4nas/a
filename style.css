@@ -55,10 +55,10 @@ button:hover {
 }
 main {
     background-color: rgba(248, 248, 248, 0.9); 
-    padding: 1%;
+    padding: 2%;
     border-radius: 10px; 
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    margin: 1% auto;
+    margin: 2% auto;
     max-width: 80%; 
 }
 select, input[type="date"], button {
@@ -168,9 +168,6 @@ select, input[type="date"], button {
     #r {
         font-size: 0.8em;
         max-width: 90%;
-    }
-    .z {
-    padding-top: 20%;  
     }
 }
 table {
