@@ -42,10 +42,8 @@ body {
 button {
     background-color: #c4baf3; 
     color: #ffffff; 
-    border: 1px solid #d1c4e9; 
-    margin: 10px 0; 
+    border: 1px solid #d1c4e9;
     padding: 10px 20px; 
-    border-radius: 5px; 
     cursor: pointer; 
     transition: background-color 0.3s; 
 }
@@ -63,12 +61,15 @@ main {
 }
 select, input[type="date"], button {
     width: 200px; 
-    padding: 10px;
     margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #d4dbf2; 
+    border-radius: 5px; 
     box-sizing: border-box; 
     outline: none;
+}
+select, input[type="date"] {
+    border: 1px solid #d4dbf2; 
+    color: #6e6e6e;
+    padding: 10px;
 }
 .z {
     padding-top: 25px;  
@@ -117,10 +118,17 @@ select, input[type="date"], button {
     display: flex;
     flex-direction: column; 
     align-items: center; 
-    margin: 10px; 
+    margin-top: 10px; 
 }
 .f label {
     margin-bottom: 5px;
+}
+#username, #password {
+    color: #6e6e6e;
+    padding: 5px;
+    border: 1px solid #6e6e6e; 
+    border-radius: 5px;
+    outline: none;
 }
 .save textarea {
     width: 100%; 
