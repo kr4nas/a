@@ -42,7 +42,7 @@ body {
 button {
     background-color: #c4baf3; 
     color: #ffffff; 
-    border: 1px solid #d1c4e9;
+    border: 1px solid #d4cafe;
     padding: 10px 20px; 
     cursor: pointer; 
     transition: background-color 0.3s; 
@@ -68,7 +68,7 @@ select, input[type="date"], button {
 }
 select, input[type="date"] {
     border: 1px solid #d4dbf2; 
-    color: #6e6e6e;
+    color: #a0a0a0;
     padding: 10px;
 }
 .z {
@@ -124,9 +124,9 @@ select, input[type="date"] {
     margin-bottom: 5px;
 }
 #username, #password {
-    color: #6e6e6e;
+    color: #a0a0a0;
     padding: 5px;
-    border: 1px solid #6e6e6e; 
+    border: 1px solid #8da4d2; 
     border-radius: 5px;
     outline: none;
 }
@@ -142,7 +142,7 @@ select, input[type="date"] {
     color: #6e6e6e; 
 }
 .save textarea:focus {
-    border-color: #d1c4e9; 
+    border-color: #d4cafe; 
     outline: none; 
 }
 @media (max-width: 992px) {
