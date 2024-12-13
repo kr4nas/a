@@ -71,7 +71,8 @@ select, input[type="date"], button {
     outline: none;
 }
 .footer {
-    padding: 3%;  
+    padding-top: 40px;
+    padding-bottom: 20px;  
     text-align: center;
     color: #b0c6eb;
     text-shadow: 
@@ -107,7 +108,7 @@ select, input[type="date"], button {
 }
 .auth-container {
     background-color: rgba(248, 248, 248, 0.9);
-    padding: 10px;
+    padding: 15px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     text-align: center; 
