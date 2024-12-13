@@ -103,7 +103,8 @@ select, input[type="date"], button {
     display: flex; 
     justify-content: center; 
     align-items: center; 
-    margin: 20px; 
+    margin-top: 20px; 
+    margin-bottom: 10px;
 }
 .auth-container {
     background-color: rgba(248, 248, 248, 0.9);
