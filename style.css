@@ -71,8 +71,7 @@ select, input[type="date"], button {
     outline: none;
 }
 .footer {
-    padding-top: 5%;  
-    padding-bottom: 3%;
+    padding: 5%;  
     text-align: center;
     color: #b0c6eb;
     text-shadow: 
@@ -168,9 +167,6 @@ select, input[type="date"], button {
     #r {
         font-size: 0.8em;
         max-width: 95%;
-    }
-    .footer {
-    padding-top: 10%;  
     }
 }
 table {
