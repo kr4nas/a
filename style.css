@@ -74,7 +74,12 @@ select, input[type="date"], button {
     padding-top: 10%;  
     padding-bottom: 3%;
     text-align: center;
-    color: #8da4d2; 
+    color: #b0c6eb;
+    text-shadow: 
+        -1px -1px 0 #8da4d2,  
+         1px -1px 0 #8da4d2,
+        -1px  1px 0 #e4e4e4,
+         1px  1px 0 #e4e4e4;
 }
 #r {
     background-color: rgba(248, 248, 248, 0.9); 
