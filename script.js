@@ -26,7 +26,7 @@ courseSelect.addEventListener('change', function() {
     groupSelect.innerHTML = '<option value="">Выберите группу</option>';
     if (selectedCourse) {
         const availableGroups = groups[selectedCourse];
-        availableGroups.forEach (function(group) {
+        availableGroups.forEach(function(group) {
             const option = document.createElement('option');
             option.value = group; 
             option.textContent = group; 
@@ -34,7 +34,7 @@ courseSelect.addEventListener('change', function() {
         });
     }
 });
-function showSchedule() {
+function showSchedule () {
     const scheduleElement = document.getElementById('r');
     scheduleElement.classList.toggle('visible'); 
 }
@@ -58,8 +58,8 @@ document.getElementById('r-form').addEventListener('submit', function(event) {
             })
             .then(data => {
                 if (sessionStorage.getItem('isAuthenticated') === 'true' && sessionStorage.getItem('isAdmin') === 'true') {
-                    document.getElementById('schedule-edit').value = data; // Загружаем расписание в текстовое поле
-                    document.querySelector('.edit-schedule').style.display = 'block'; // Показываем текстовое поле
+                    document.getElementById('save-textarea').value = data; 
+                    document.querySelector('.save').style.display = 'block'; 
                 } else {
                     const scheduleTable = document.getElementById('r');
                     scheduleTable.innerHTML = ''; 
@@ -96,8 +96,8 @@ let nn = 0;
 document.getElementById('edit').addEventListener('click', function() {
     const group = groupSelect.value; 
     const date = document.getElementById('date').value; 
-    const scheduleEditDiv = document.querySelector('.edit-schedule');
-    if (group && date) {
+    const scheduleEditDiv = document.querySelector('.save');
+    if (group && date ) {
         const [year, month, day] = date.split('-');
         const folderPath = `https://kr4nas.github.io/a/${date}/`; 
         fetch(folderPath + `${group}.txt`)
@@ -109,7 +109,7 @@ document.getElementById('edit').addEventListener('click', function() {
             })
             .then(data => {
                 if (nn % 2 === 0) {
-                    document.getElementById('schedule-edit').value = data; 
+                    document.getElementById('save-textarea').value = data; 
                     scheduleEditDiv.style.display = 'block'; 
                     this.innerText = 'Отменить редактирование'; 
                 } else {
@@ -125,4 +125,28 @@ document.getElementById('edit').addEventListener('click', function() {
     } else {
         alert('Пожалуйста, выберите группу и дату для редактирования расписания.');
     }
+});
+document.getElementById('save-button').addEventListener('click', function() {
+    const group = groupSelect.value; 
+    const date = document.getElementById('date').value; 
+    const scheduleData = document.getElementById('save-textarea').value; 
+    const folderPath = `https://kr4nas.github.io/a/${date}/`; 
+    const filePath = `${folderPath}${group}.txt`;
+    fetch(filePath, {
+        method: 'PUT',
+        body: scheduleData,
+        headers: {
+            'Content-Type': 'text/plain'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Ошибка при сохранении расписания.');
+        }
+        alert('Расписание успешно сохранено.');
+    })
+    .catch(error => {
+        console.error('Ошибка:', error); 
+        alert('Ошибка при сохранении расписания.');
+    });
 });
