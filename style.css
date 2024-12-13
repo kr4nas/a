@@ -121,6 +121,9 @@ select, input[type="date"], button {
 }
 .f label {
     margin-bottom: 5px;
+    border: 1px solid #6e6e6e; 
+    border-radius: 5px;
+    outline: none;
 }
 .save textarea {
     width: 100%; 
