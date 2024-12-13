@@ -146,7 +146,7 @@ select, input[type="date"], button {
     }
     .a img {
         max-width: 90%; 
-        margin-bottom: 5px; 
+        margin-bottom: 0px; 
         display: block; 
         margin-left: auto; 
         margin-right: auto; 
@@ -162,7 +162,7 @@ select, input[type="date"], button {
     }
     #r {
         font-size: 0.8em;
-        max-width: 90%;
+        max-width: 95%;
     }
     .footer {
     padding-top: 20%;  
