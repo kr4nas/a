@@ -46,8 +46,8 @@ document.getElementById('r-form').addEventListener('submit', function(event) {
     const button = document.querySelector('button[type="submit"]');
     if (group && date) {
         const [year, month, day] = date.split('-');
-        const formattedDate = `${day}.${month}.${year}`; 
-        const folderPath = `https://kr4nas.github.io/a/${date}/`; 
+        const formattedDate = `${year}-${month}-${day}`;
+        const folderPath = `http://anastpdp.beget.tech/${formattedDate}/`;
         fetch(folderPath + `${group}.txt`)
             .then(response => {
                 console.log('Response status:', response.status); 
@@ -97,9 +97,9 @@ document.getElementById('edit').addEventListener('click', function() {
     const group = groupSelect.value; 
     const date = document.getElementById('date').value; 
     const scheduleEditDiv = document.querySelector('.save');
-    if (group && date ) {
+    if (group && date) {
         const [year, month, day] = date.split('-');
-        const folderPath = `https://kr4nas.github.io/a/${date}/`; 
+        const folderPath = `http://anastpdp.beget.tech/${year}-${month}-${day}/`; 
         fetch(folderPath + `${group}.txt`)
             .then(response => {
                 if (!response.ok) {
@@ -130,13 +130,19 @@ document.getElementById('save-button').addEventListener('click', function() {
     const group = groupSelect.value; 
     const date = document.getElementById('date').value; 
     const scheduleData = document.getElementById('save-textarea').value; 
-    const folderPath = `https://kr4nas.github.io/a/${date}/`; 
+    const [year, month, day] = date.split('-');
+    const formattedDate = `${year}-${month}-${day}`; 
+    const folderPath = `http://anastpdp.beget.tech/${formattedDate}/`;
     const filePath = `${folderPath}${group}.txt`;
-    fetch(filePath, {
-        method: 'PUT',
-        body: scheduleData,
+    fetch('http://anastpdp.beget.tech/save_schedule.php', { 
+        method: 'POST', 
+        body: JSON.stringify({
+            date: date,
+            group: group,
+            schedule: scheduleData
+        }),
         headers: {
-            'Content-Type': 'text/plain'
+            'Content-Type': 'application/json'
         }
     })
     .then(response => {
