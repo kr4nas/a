@@ -1,60 +1,2005 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="shortcut icon" href="AA.png" />
-    <title>УИПК. Расписание занятий</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ведомость по практике</title>
+  <link rel="icon" href="https://img.icons8.com/fluency/48/koala.png"  type="image/png">
 </head>
 <body>
-    <div class="a">
-        <img src="logotip.png" alt="Логотип колледжа">
-        <h1>Государственное профессиональное образовательное учреждение Ярославской области<br>Угличский индустриально-педагогический колледж</h1>
+  <div class="container">
+    <!-- Заголовок -->
+    <div class="header">
+      <span class="overlay-text">Ведомость по практике</span>
+      <button id="themeToggle" class="theme-toggle-btn">
+        <img src="https://raw.githubusercontent.com/kr4nas/a/main/day.gif"  alt="Theme Toggle" class="theme-icon">
+      </button>
     </div>
-    <div class="b">
-        <button type="button" id="auth" onclick="window.location.href='login.html'">Авторизация</button>
+
+<div class="form-group">
+  <!-- Первый столбик -->
+  <div class="a">
+    <div class="field-container summary-keep">
+      <label for="specialty">Специальность:</label>
+      <input type="text" id="specialty" placeholder="Например: Туризм" oninput="validateSpecialty(this)">
     </div>
-    <div class="exit" style="display: none;">
-        <button type="button" id="exit">Выйти из профиля</button>
+    <div class="field-container">
+      <label for="practiceName">Название практики:</label>
+      <input type="text" id="practiceName" placeholder="Например: Учебная" oninput="validatePracticeName(this)">
     </div>
-    <main>
-        <form id="r-form">
-            <p>
-                <label for="c">Выберите курс:</label>
-                <select id="c">
-                    <option value="">Выберите курс</option>
-                    <option value="c1">1 курс</option>
-                    <option value="c2">2 курс</option>
-                    <option value="c3">3 курс</option>
-                    <option value="c4">4 курс</option>
-                    <option value="c5">5 курс</option>
-                </select>
-            </p>
-            <p>
-                <label for="g">Выберите группу:</label>
-                <select id="g">
-                    <option value="">Выберите группу</option>
-                </select>
-            </p>
-            <p>
-                <label for="date">Выберите дату:</label>
-                <input type="date" id="date" required>
-            </p>
-                <button type="submit">Показать расписание</button>   
-        </form>
-        <div class="edit" style="display: none;">
-            <button type="button" id="edit">Редактировать расписание</button>
-        </div>
-        <div class="save" style="display: none;">
-            <textarea id="save-textarea" rows="10" cols="50"></textarea>
-            <button type="button" id="save-button">Сохранить изменения</button>
-        </div>
-    </main>
-    <div id="r"></div>
-    <script src="script.js"></script>
+    <div class="field-container">
+      <label for="methodist">Методист:</label>
+      <input type="text" id="methodist" placeholder="Введите ФИО методиста" oninput="validateMethodist(this)">
+    </div>
+  </div>
+  <!-- Второй столбик -->
+  <div class="a">
+    <div class="field-container summary-keep">
+      <label for="group">Группа:</label>
+      <input type="text" id="group" placeholder="Введите номер группы" oninput="validateGroup(this)">
+    </div>
+    <div class="field-container">
+      <label for="dateRange">Период практики:</label>
+      <input type="text" id="dateRange" readonly placeholder="Выберите даты">
+      <button onclick="openDateDialog()" class="btn">Выбрать даты</button>
+    </div>
+    <div class="field-container">
+      <label class="toggle-button">Создать столбцы по датам<input type="checkbox" id="autoCreateDatesToggle"><span class="checkmark"></span></label>
+    </div>
+  </div>
+  <!-- Третий столбик -->
+  <div class="a">
+    <div class="field-container summary-keep">
+      <label>Учебный год:</label>
+      <input type="text" id="studyPeriod" readonly placeholder="Выберите период">
+      <button onclick="openYearDialog()" class="btn">Выбрать годы</button>
+    </div>
+    <div class="field-container">
+      <label for="semester">Семестр:</label>
+      <input type="text" id="semester" placeholder="1 или 2" oninput="validateSemester(this)">
+    </div>
+    <div class="field-container">
+      <label class="toggle-button">Добавить темы<input type="checkbox" id="addThemesToggle"><span class="checkmark"></span></label>
+    </div>
+  </div>
+  <!-- Четвертый столбик -->
+  <div class="a">
+    <div class="field-container summary-keep">
+      <label>Пользовательский столбец:</label>
+      <input type="text" id="customColumnName" placeholder="Название столбца">
+      <button onclick="addCustomColumn()" class="btn">Добавить столбец</button>
+      <button onclick="deleteCustomColumns()" class="btn">Удалить столбец</button>
+    </div>
+    <div class="field-container">
+      <label>Управление подгруппами:</label>
+      <button onclick="openSubgroupDialog()" class="btn">Управление подгруппами</button>
+    </div>
+  </div>
+  <!-- Пятый столбик -->
+  <div class="a">
+    <div class="field-container">
+      <label>Шаблон:</label>
+      <select id="columnTemplateSelect">
+        <option value="">Выберите шаблон</option>
+        <option value="Место прохождения практики">Место прохождения практики</option>
+        <option value="Количество часов">Количество часов</option>
+        <option value="Отчёт">Отчёт</option>
+        <option value="Дневник">Дневник</option>
+        <option value="Итог">Итог</option>
+      </select>
+      <button onclick="addTemplateColumn()" class="btn">Добавить шаблон</button>
+    </div>
+    <label class="toggle-button">Сводная ведомость<input type="checkbox" id="summaryModeToggle"><span class="checkmark"></span></label>
+  </div>
+</div>
+
+    <!-- Таблица студентов -->
+    <div class="table-container">
+      <table id="studentTable">
+        <thead>
+          <tr><th>ФИО студента</th></tr>
+        </thead>
+        <tbody id="studentBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Кнопки действий -->
+    <div class="button-container">
+      <button onclick="saveData()" class="btn">Сохранить в Excel</button>
+      <button onclick="saveToWord()" class="btn">Сохранить в Word</button>
+      <button onclick="editStudents()" class="btn">Редактировать список студентов</button>
+      <button onclick="resetTable()" class="btn">Очистить таблицу</button>
+    </div>
+  </div>
+
+  <!-- Диалог: Выбор года -->
+  <div id="yearDialog" class="modal calendar-modal hidden">
+    <div class="modal-header">
+      <h3>Укажите учебный год</h3>
+      <button class="close-btn" onclick="closeYearDialog()">&times;</button>
+    </div>
+    <div id="yearContainer"></div>
+    <div class="button-container">
+      <button onclick="confirmYear()" class="btn">Подтвердить</button>
+    </div>
+  </div>
+
+  <!-- Диалог: Подгруппы -->
+  <div id="subgroupDialog" class="modal hidden">
+    <div class="modal-header">
+      <h3>Управление подгруппами</h3>
+      <button class="close-btn" onclick="closeSubgroupDialog()">&times;</button>
+    </div>
+    <div id="subgroupsContainer"></div>
+    <div class="button-container">
+      <button onclick="addSubgroup()" class="btn">Добавить подгруппу</button>
+      <button onclick="addSubgroupColumn()" class="btn">Добавить столбец «Подгруппа»</button>
+    </div>
+  </div>
+
+  <!-- Диалог: Календарь -->
+  <div id="dateDialog" class="modal calendar-modal hidden">
+    <div class="modal-header">
+      <h3>Укажите период практики</h3>
+      <button class="close-btn" onclick="cancelDate()">&times;</button>
+    </div>
+    <div class="calendar-controls">
+      <button onclick="prevMonth()">&#9664;</button>
+      <span id="monthYearDisplay"></span>
+      <button onclick="nextMonth()">&#9654;</button>
+    </div>
+    <div id="calendar"></div>
+    <div class="button-container">
+      <button onclick="confirmDate()" class="btn">Подтвердить</button>
+    </div>
+  </div>
+
+  <!-- Диалог: Редактирование студентов -->
+  <!-- Внутри диалога редактирования студентов -->
+  <!-- Внутри диалога редактирования студентов -->
+<div id="studentDialog" class="modal hidden">
+  <div class="modal-header">
+    <h3>Редактировать список студентов</h3>
+    <button class="close-btn" onclick="closeStudentDialog()">&times;</button>
+  </div>
+  <input type="file" id="studentFileInput" accept=".xlsx" onchange="loadStudentList()">
+  
+  <!-- Контейнер таблицы с прокруткой -->
+  <div class="table-container">
+    <table id="editStudentTable">
+      <thead><tr><th>ФИО</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="button-container">
+    <button onclick="addStudentRow()" class="btn">Добавить строку</button>
+    <button onclick="deleteSelectedRows()" class="btn">Удалить</button>
+    <button onclick="saveStudentFile()" class="btn">Сохранить файл</button>
+    <button onclick="applyStudentList()" class="btn">Сохранить список</button>
+  </div>
+</div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay hidden"></div>
+
+  <!-- Скрипты -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/html-docx-js@0.3.1/dist/html-docx.min.js"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>  
+  <script src="https://unpkg.com/pizzip@3.1.5/build/pizzip.min.js"></script> 
+  <script src="https://unpkg.com/docxtemplater@3.36.0/build/docxtemplater.js"></script> 
 </body>
-<footer class="z">
-    Углич, 2024
-</footer>
 </html>
+
+<style>
+@media (max-width: 1200px) {
+  body .container {
+    transform: scale(0.9);
+    transform-origin: top left;
+    width: 110%;
+    margin-left: -5%;
+  }
+}
+@media (max-width: 900px) {
+  body .container {
+    transform: scale(0.8);
+    transform-origin: top left;
+    width: 120%;
+    margin-left: -10%;
+  }
+}
+@media (max-width: 600px) {
+  body .container {
+    transform: scale(0.7);
+    transform-origin: top left;
+    width: 130%;
+    margin-left: -15%;
+  }
+}
+
+* {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 20px;
+}
+.header {
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+  background-image: url('https://github.com/kr4nas/a/raw/main/0.png'); 
+  background-size: cover;
+  background-position: center;
+  color: #eee;
+  margin: 0 auto 20px auto; /* центрирование */
+}
+.header::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 0;
+}
+.header .overlay-text {
+  position: relative;
+  z-index: 1;
+  margin: 10px 20px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* === Кнопка смены темы === */
+.theme-toggle-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 8px;
+  opacity: 0.7;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease;
+}
+.theme-toggle-btn:hover {
+  transform: scale(1.1);
+  opacity: 1;
+}
+.theme-icon {
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.3s ease;
+}
+
+/* === Ночная тема === */
+body.night-mode *{
+  background-color: #404040;
+}
+body.night-mode {
+  background-color: #404040; /* Темный фон */
+  min-height: 100vh; /* Заполняем всю высоту страницы */
+}
+body.night-mode input[type="text"],
+body.night-mode select,
+body.night-mode button {
+  color: #fff !important;
+  background-color: #2e2e2e !important;
+  border-color: #555 !important;
+}
+body.night-mode .form-group input,
+body.night-mode .form-group select,
+body.night-mode .form-group button {
+  background-color: #2e2e2e;
+  color: #fff;
+  border-color: #555;
+}
+body.night-mode .table-container {
+  background-color: #2e2e2e;
+  border-color: #555;
+}
+body.night-mode th,
+body.night-mode td {
+  background-color: #3a3a3a !important;
+  color: #fff;
+  border-color: #444;
+}
+body.night-mode .header {
+  background-image: url('https://github.com/kr4nas/a/blob/main/00.png?raw=true');
+}
+
+/* === Общие стили формы === */
+.form-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.form-group > * {
+  min-width: 80px;
+  max-width: 250px;
+  flex: 1 1 auto;
+}
+label {
+  font-size: 14px;
+  margin-top: 6px;
+}
+input[type="text"],
+select,
+button {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc; 
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+input[type="text"]:focus {
+  border-color: #cde5ff;
+  background-color: #eef7ff;
+}
+.btn,
+.cmbx {
+  background-color: #d0d0d0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border: none;
+  padding: 8px 12px;
+  font-weight: 500;
+}
+.btn:hover,
+.cmbx:hover {
+  background-color: #c0c0c0;
+}
+.hidden {
+  display: none;
+}
+.button-container {
+  margin-top: 10px; /* Добавляем отступ перед кнопками */
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+/* Обычная тема */
+.btn {
+  background: linear-gradient(120deg, #f0f0f0, #e0e0e0);
+  transition: background 0.3s ease, transform 0.3s ease;
+  border: 1px solid #ccc;
+}
+.btn:hover {
+  background: linear-gradient(120deg, #e8e8e8, #dcdcdc);
+  transform: translateY(-2px);
+}
+/* Ночная тема */
+body.night-mode .btn {
+  background: linear-gradient(120deg, #3d3d3d, #333);
+  border: 1px solid #555;
+}
+body.night-mode .btn:hover {
+  background: linear-gradient(120deg, #464646, #3d3d3d);
+}
+
+
+/* === Таблицы === */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 10px;
+  margin-bottom: 20px; /* Добавляем отступ после таблицы */
+}
+#studentTable,
+#editStudentTable {
+  border-collapse: collapse;
+  width: max-content;
+  min-width: 100%;
+  table-layout: fixed;
+}
+#studentTable input[type="text"] {
+  width: 100%;
+}
+th,
+td {
+  border: 2px solid #ccc;
+  padding: 8px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  border-radius: 8px;
+}
+.table-cell {
+  min-width: 80px;
+  max-width: 300px;
+}
+#studentTable th:first-child,
+#studentTable td:first-child {
+  position: sticky;
+  left: 0;
+  background-color: #ddd;
+  z-index: 1;
+  min-width: 300px;
+  max-width: 300px;
+  width: 300px;
+  border-radius: 0px;
+}
+#editStudentTable td {
+  position: relative;
+}
+
+/* === Кнопки удаления === */
+.delete-col-btn,
+.delete-row-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #de4545;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+}
+.delete-col-btn:hover,
+.delete-row-btn:hover {
+  transform: scale(1.2);
+}
+.delete-row-btn {
+  top: 4px;
+  right: 6px;
+  z-index: 10;
+}
+
+/* === Оценки === */
+.grade-zachet { background-color: #8DB89C !important; color: white; }
+.grade-nezachet { background-color: #E2877E !important; color: white; }
+.grade-5 { background-color: #8DB89C !important; }
+.grade-4 { background-color: #B2D5B2 !important; }
+.grade-3 { background-color: #FCFABD !important; }
+.grade-2 { background-color: #E2877E !important; color: white; }
+
+/* === Модальные окна === */
+.modal {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  width: 800px;
+  max-width: 90%;
+  background: #fff;
+  padding: 20px;
+  z-index: 10;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  animation: fadeIn 0.3s ease-in-out forwards;
+}
+.modal.hidden {
+  animation: fadeOut 0.3s ease-in-out forwards;
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #aaa;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 4px 8px;
+  transition: color 0.2s;
+}
+.close-btn:hover {
+  color: #444;
+}
+.overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9;
+  display: none;
+  transition: opacity 0.3s ease;
+}
+.overlay.active {
+  display: block;
+  opacity: 1;
+}
+.overlay.hidden {
+  opacity: 0;
+}
+/* Улучшение стиля кнопки "OK" */
+.modal .button-container button {
+  width: 100%; /* Широкая кнопка */
+  margin: 10px 0; /* Отступы */
+  text-align: center; /* Выравнивание по центру */
+}
+
+/* === Для подгрупп (.subgroup-row) внутри модального окна === */
+#subgroupsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.subgroup-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+}
+.subgroup-row input {
+  flex: 1 1 auto; /* Растягиваем инпуты */
+}
+.subgroup-row .delete-subgroup-btn {
+  flex: 0 0 30px;
+  height: 30px;
+  background-color: #ec5d5d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.subgroup-row .delete-subgroup-btn:hover {
+  background-color: #d63f3f;
+}
+
+/* Улучшение стиля поля выбора лет */
+/* === Светлая тема по умолчанию === */
+#yearContainer .year-cell {
+  border-radius: 8px;
+  border: 1px solid #ccc; /* Светло-серая граница */
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: #fff;
+  color: #000;
+}
+#yearContainer .year-cell:hover {
+  background-color: #f0f0f0; /* Светлое подсвечивание при наведении */
+}
+/* === Тёмная тема === */
+body.night-mode #yearContainer .year-cell {
+  border: 1px solid #555;
+  background-color: #2e2e2e;
+  color: #fff;
+}
+body.night-mode #yearContainer .year-cell:hover {
+  background-color: #444; /* Темное подсвечивание при наведении */
+}
+
+/* === Календарь === */
+.calendar-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+#calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 40px);
+  grid-template-rows: repeat(6, 40px);
+  gap: 4px;
+  text-align: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+.calendar-modal {
+  width: 400px !important;
+}
+.day {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 6px;
+}
+/* === Цвет выбранной даты в календаре по умолчанию (светлая тема) === */
+.selected-start,
+.selected-range,
+.selected-end {
+  background-color: #b7d8fc !important;
+  color: white;
+}
+/* === Цвет выбранной даты в ночной теме === */
+body.night-mode .selected-start,
+body.night-mode .selected-range,
+body.night-mode .selected-end {
+  background-color: #E2877E !important; /* Красный цвет */
+  color: white;
+}
+.sunday {
+  color: #de4545;
+  font-weight: bold;
+}
+.holiday {
+  color: #c0392b;
+  font-weight: bold;
+}
+
+/* === Анимации === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -20%); }
+  to { opacity: 1; transform: translate(-50%, -30%); }
+}
+@keyframes fadeOut {
+  from { opacity: 1; transform: translate(-50%, -30%); }
+  to { opacity: 0; transform: translate(-50%, -20%); }
+}
+@keyframes rowDelete {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.8); }
+}
+.row-delete-animation {
+  animation: rowDelete 0.3s ease-in-out forwards;
+}
+@keyframes columnDelete {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.8); }
+}
+.column-delete-animation {
+  animation: columnDelete 0.3s ease-in-out forwards;
+}
+
+/* === Основные элементы в столбиках и строках === */
+.a{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.field-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 10px; /* Горизонтальный зазор между элементами */
+  margin-bottom: 10px; /* Вертикальный зазор между строками */
+}
+.field-container label {
+  font-size: 14px;
+  margin-top: 5px;
+}
+.field-container input,
+.field-container select,
+.field-container button {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+.field-container button {
+  margin-top: 5px;
+}
+
+.toggle-button {
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 500;
+  display: inline-block;
+  margin: 5px 0;
+}
+.toggle-button input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkmark {
+  position: absolute;
+  left: 0;
+  top: 2px;
+  height: 20px;
+  width: 20px;
+  background-color: #ddd;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+.checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 7px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Когда выбран */
+.toggle-button input:checked ~ .checkmark {
+  background-color: #9dcafa;
+}
+.toggle-button input:checked ~ .checkmark::after {
+  display: block;
+}
+/* === Улучшенный контраст для чекбоксов в ночной теме === */
+body.night-mode .checkmark {
+  background-color: #2e2e2e !important; /* Цвет фона квадратика */
+  border: 1px solid #555 !important;
+}
+body.night-mode .checkmark::after {
+  border-color: #fff !important; /* Цвет галочки */
+}
+body.night-mode .toggle-button {
+  color: #eee !important; /* Цвет текста рядом с чекбоксом */
+}
+body.night-mode .toggle-button input:checked ~ .checkmark {
+  background-color: #E2877E !important;
+}
+
+/* === Прокрутка для таблицы студентов в модальном окне === */
+#studentDialog .table-container {
+  max-height: 300px; /* Высота до появления скролла (примерно на 10 строк) */
+  overflow-y: auto;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+/* Убираем лишнее увеличение ширины из-за скроллбара */
+#studentDialog table {
+  width: 100%;
+  table-layout: fixed;
+}
+</style>
+
+
+
+<script>
+// Валидация полей
+function validateSpecialty(input) { input.value = input.value.replace(/[^а-яА-ЯёЁ\s\-]/g, ''); }
+function validateGroup(input) { input.value = input.value.replace(/[^а-яА-ЯёЁ0-9]/g, ''); }
+function validateAdmissionYear(input) { input.value = input.value.replace(/\D/g, '').slice(0, 4); }
+function validatePracticeName(input) { input.value = input.value.replace(/[^а-яА-ЯёЁ\-\s]/g, ''); }
+function validateMethodist(input) { input.value = input.value.replace(/[^а-яА-ЯёЁ\.\-\s]/g, ''); }
+function validateSemester(input) { input.value = input.value.replace(/[^1-2]/g, '').slice(0, 1); }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const themeBtn = document.getElementById("themeToggle");
+  const icon = themeBtn.querySelector(".theme-icon");
+  const isNight = localStorage.getItem("nightMode") === "true";
+  if (isNight) {
+    document.body.classList.add("night-mode");
+    icon.src = "https://raw.githubusercontent.com/kr4nas/a/main/night.gif"; 
+  } else {
+    icon.src = "https://raw.githubusercontent.com/kr4nas/a/main/day.gif"; 
+  }
+  themeBtn.addEventListener("click", () => {
+    document.body.classList.toggle("night-mode");
+    const isNightNow = document.body.classList.contains("night-mode");
+    localStorage.setItem("nightMode", isNightNow);
+    icon.style.opacity = "0";
+    setTimeout(() => {
+      icon.src = isNightNow
+        ? "https://raw.githubusercontent.com/kr4nas/a/main/night.gif" 
+        : "https://raw.githubusercontent.com/kr4nas/a/main/day.gif"; 
+      icon.style.opacity = "1";
+    }, 150);
+  });
+});
+
+let students = [];
+let startDate = null;
+let endDate = null;
+let currentCalendarDate = new Date();
+let startYear = null;
+let endYear = null;
+
+// Календарь
+function openDateDialog() {
+  const overlay = document.getElementById("overlay");
+  const dialog = document.getElementById("dateDialog");
+  overlay.classList.remove("hidden");
+  overlay.style.opacity = "1";
+  overlay.style.pointerEvents = "auto";
+  dialog.classList.remove("hidden");
+  renderCalendar();
+}
+
+function confirmDate() {
+  if (!startDate || !endDate) return alert("Выберите начальную и конечную даты.");
+  
+  const startStr = formatDate(startDate);
+  const endStr = formatDate(endDate);
+  document.getElementById("dateRange").value = `${startStr} — ${endStr}`;
+  
+  // Если чекбокс включён — перестраиваем таблицу с датами
+  if (document.getElementById("autoCreateDatesToggle").checked) {
+    clearDateColumns(); // очищаем старые столбцы
+    rebuildTableWithDates(); // создаём новые столбцы
+    redrawTable(); // <-- ключевое: перерисовываем все строки
+  }
+
+  closeDateDialog();
+}
+
+function cancelDate() { closeDateDialog(); }
+
+function closeDateDialog() {
+  const overlay = document.getElementById("overlay");
+  const dialog = document.getElementById("dateDialog");
+  overlay.style.opacity = "0";
+  overlay.style.pointerEvents = "none";
+  setTimeout(() => dialog.classList.add("hidden"), 300);
+  currentCalendarDate = new Date();
+  renderCalendar();
+}
+
+function formatDate(date) {
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear().toString().slice(-2);
+  return `${day}.${month}.${year}`;
+}
+
+function getMonthName(monthIndex) {
+  const months = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+    "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+  return months[monthIndex];
+}
+
+const holidays = [
+  "01.01", "07.01", "23.02", "08.03", "01.05", "09.05", "12.06", "04.11"
+];
+
+function renderCalendar() {
+  const calendar = document.getElementById("calendar");
+  const monthYearDisplay = document.getElementById("monthYearDisplay");
+  const year = currentCalendarDate.getFullYear();
+  const month = currentCalendarDate.getMonth();
+  monthYearDisplay.textContent = `${getMonthName(month)} ${year}`;
+  calendar.innerHTML = "";
+  const daysOfWeek = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+  daysOfWeek.forEach(day => {
+    const div = document.createElement("div");
+    div.style.fontWeight = "bold";
+    div.textContent = day;
+    calendar.appendChild(div);
+  });
+  const firstDay = new Date(year, month, 1);
+  for (let i = 0; i < (firstDay.getDay() + 6) % 7; i++) {
+    const empty = document.createElement("div");
+    calendar.appendChild(empty);
+  }
+  const lastDay = new Date(year, month + 1, 0);
+  for (let d = 1; d <= lastDay.getDate(); d++) {
+    const date = new Date(year, month, d);
+    const formattedDate = String(d).padStart(2, '0') + "." + String(month + 1).padStart(2, '0');
+    const div = document.createElement("div");
+    div.className = "day";
+    div.textContent = d;
+    div.dataset.date = date.toISOString().split('T')[0];
+    if (date.getDay() === 0) div.classList.add("sunday");
+    if (holidays.includes(formattedDate)) div.classList.add("holiday");
+    div.onclick = () => {
+      if (!startDate) {
+        startDate = new Date(date);
+        endDate = null;
+        div.classList.add("selected-start");
+        Array.from(calendar.children).forEach(c => c.classList.remove("selected-range", "selected-end"));
+      } else if (date.getTime() === startDate.getTime()) {
+        startDate = null;
+        div.classList.remove("selected-start");
+      } else if (!endDate) {
+        endDate = new Date(date);
+        let curr = new Date(startDate);
+        while (curr <= endDate) {
+          const cell = Array.from(calendar.children).find(c => c.dataset.date === curr.toISOString().split('T')[0]);
+          if (cell && !cell.classList.contains("selected-start")) {
+            cell.classList.remove("selected-range");
+            cell.classList.add("selected-range");
+          }
+          curr.setDate(curr.getDate() + 1);
+        }
+        div.classList.add("selected-end");
+      } else {
+        startDate = new Date(date);
+        endDate = null;
+        Array.from(calendar.children).forEach(c => c.classList.remove("selected-start", "selected-end", "selected-range"));
+        div.classList.add("selected-start");
+      }
+    };
+    calendar.appendChild(div);
+  }
+}
+
+document.getElementById("autoCreateDatesToggle").addEventListener("change", function () {
+  if (this.checked) {
+    if (startDate && endDate) {
+      clearDateColumns();
+      resetDeleteButtons();
+      rebuildTableWithDates();
+      redrawTable(); // <-- ключевое изменение: перерисовываем всю таблицу
+    } else {
+      this.checked = false;
+      alert("Выберите диапазон дат в календаре.");
+    }
+  } else {
+    clearDateColumns();
+    resetDeleteButtons();
+    redrawTable(); // <-- тоже здесь
+  }
+});
+
+function clearDateColumns() {
+  const thead = document.querySelector("#studentTable thead tr");
+  const tbody = document.getElementById("studentBody");
+
+  // Удалить заголовки с датами
+  Array.from(thead.children).forEach(cell => {
+    if (/^\d{2}\.\d{2}\.\d{2}$/.test(cell.textContent.trim())) {
+      thead.removeChild(cell);
+    }
+  });
+
+  // Удалить ячейки с датами в каждой строке
+  Array.from(tbody.rows).forEach(row => {
+    for (let i = row.cells.length - 1; i >= 1; i--) {
+      const cell = row.cells[i];
+      let cellText = "";
+      const input = cell.querySelector("input");
+      if (input) {
+        cellText = input.value.trim();
+      } else {
+        cellText = cell.textContent.trim();
+      }
+      if (/^\d{2}\.\d{2}\.\d{2}$/.test(cellText)) {
+        row.deleteCell(i);
+      }
+    }
+  });
+
+  updateTableScroll();
+}
+
+function prevMonth() {
+  currentCalendarDate.setMonth(currentCalendarDate.getMonth() - 1);
+  renderCalendar();
+}
+
+function nextMonth() {
+  currentCalendarDate.setMonth(currentCalendarDate.getMonth() + 1);
+  renderCalendar();
+}
+
+// Диалог: Выбор годов
+function openYearDialog() {
+  const overlay = document.getElementById("overlay");
+  const dialog = document.getElementById("yearDialog");
+  overlay.classList.remove("hidden");
+  overlay.style.opacity = "1";
+  overlay.style.pointerEvents = "auto";
+  dialog.classList.remove("hidden");
+  renderYearPicker();
+}
+
+function confirmYear() {
+  if (!startYear || !endYear) return alert("Выберите оба года.");
+  const start = Math.min(startYear, endYear);
+  const end = Math.max(startYear, endYear);
+  document.getElementById("studyPeriod").value = `${start}–${end}`;
+  closeYearDialog();
+}
+
+function closeYearDialog() {
+  const overlay = document.getElementById("overlay");
+  const dialog = document.getElementById("yearDialog");
+  overlay.style.opacity = "0";
+  overlay.style.pointerEvents = "none";
+  setTimeout(() => dialog.classList.add("hidden"), 300);
+  startYear = null;
+  endYear = null;
+  renderYearPicker();
+}
+
+function selectYear(year) {
+  if (!startYear) {
+    startYear = year;
+    document.querySelectorAll(".year-cell").forEach(cell => cell.classList.remove("selected-start"));
+    document.querySelector(`[data-year="${year}"]`).classList.add("selected-start");
+  } else if (year === startYear) {
+    startYear = null;
+    document.querySelector(`[data-year="${year}"]`).classList.remove("selected-start");
+  } else if (!endYear) {
+    endYear = year;
+    document.querySelector(`[data-year="${year}"]`).classList.add("selected-end");
+  } else {
+    startYear = year;
+    endYear = null;
+    document.querySelectorAll(".year-cell").forEach(cell => cell.classList.remove("selected-start", "selected-end"));
+    document.querySelector(`[data-year="${year}"]`).classList.add("selected-start");
+  }
+}
+
+let currentYearBlock = Math.floor(new Date().getFullYear() / 10);
+
+function renderYearPicker() {
+  const container = document.getElementById("yearContainer");
+  container.innerHTML = "";
+  const startYear = currentYearBlock * 10;
+  const endYear = startYear + 9;
+  for (let y = startYear; y <= endYear; y++) {
+    const div = document.createElement("div");
+    div.className = "year-cell";
+    div.dataset.year = y;
+    div.textContent = y;
+    div.onclick = () => selectYear(y);
+    container.appendChild(div);
+  }
+  const controls = document.createElement("div");
+  controls.style.display = "flex";
+  controls.style.justifyContent = "space-between";
+  controls.style.marginTop = "10px";
+  const prevBtn = document.createElement("button");
+  prevBtn.textContent = "← Предыдущие";
+  prevBtn.onclick = () => {
+    currentYearBlock--;
+    renderYearPicker();
+  };
+  const nextBtn = document.createElement("button");
+  nextBtn.textContent = "Следующие →";
+  nextBtn.onclick = () => {
+    currentYearBlock++;
+    renderYearPicker();
+  };
+  controls.appendChild(prevBtn);
+  controls.appendChild(nextBtn);
+  container.appendChild(controls);
+}
+
+// Управление подгруппами
+function addSubgroup() {
+  const container = document.getElementById("subgroupsContainer");
+  const div = document.createElement("div");
+  div.className = "subgroup-row";
+  div.innerHTML = `<input type="text" placeholder="Название подгруппы"><input type="text" placeholder="Методист"><button class="delete-subgroup-btn">×</button>`;
+  div.querySelector(".delete-subgroup-btn").onclick = () => container.removeChild(div);
+  container.appendChild(div);
+}
+
+function openSubgroupDialog() {
+  const overlay = document.getElementById("overlay");
+  const dialog = document.getElementById("subgroupDialog");
+  overlay.classList.remove("hidden");
+  overlay.style.opacity = "1";
+  overlay.style.pointerEvents = "auto";
+  dialog.classList.remove("hidden");
+}
+
+function closeSubgroupDialog() {
+  const overlay = document.getElementById("overlay");
+  const dialog = document.getElementById("subgroupDialog");
+  overlay.style.opacity = "0";
+  overlay.style.pointerEvents = "none";
+  setTimeout(() => dialog.classList.add("hidden"), 300);
+}
+
+function saveSubgroups() {
+  const subgroups = [];
+  document.querySelectorAll(".subgroup-row").forEach(row => {
+    const nameInput = row.querySelector("input:nth-child(1)");
+    const methodistInput = row.querySelector("input:nth-child(2)");
+    if (nameInput.value.trim()) {
+      subgroups.push({
+        name: nameInput.value,
+        methodist: methodistInput.value
+      });
+    }
+  });
+  localStorage.setItem("subgroups", JSON.stringify(subgroups));
+  closeSubgroupDialog();
+}
+
+function addSubgroupColumn() {
+  const theadRow = document.querySelector('#studentTable thead tr');
+  const tbodyRows = document.querySelectorAll('#studentBody tr');
+
+  const headers = Array.from(document.querySelectorAll("#studentTable thead th")).map(th => th.textContent.trim());
+  if (headers.includes("Подгруппа")) {
+    alert("Столбец 'Подгруппа' уже существует.");
+    return;
+  }
+
+  const th = createCell('th', 'Подгруппа');
+  theadRow.insertBefore(th, theadRow.children[1]);
+
+  tbodyRows.forEach(row => {
+    const td = createCell('td');
+    const select = document.createElement("select");
+    select.style.width = "100%";
+    select.innerHTML = "<option value=''></option>";
+    document.querySelectorAll(".subgroup-row input:first-child").forEach(input => {
+      const subgroupName = input.value.trim();
+      if (subgroupName) {
+        const option = document.createElement("option");
+        option.value = subgroupName;
+        option.textContent = subgroupName;
+        select.appendChild(option);
+      }
+    });
+    td.appendChild(select);
+    row.insertBefore(td, row.children[1]);
+  });
+  updateThemesRow();
+  updateTableScroll();
+}
+
+function updateSubgroupSelectors() {
+  const headers = Array.from(document.querySelectorAll("#studentTable thead th")).map(th => th.textContent.trim());
+  const hasSubgroupColumn = headers.includes("Подгруппа");
+  if (!hasSubgroupColumn) return;
+
+  const subgroups = [];
+  document.querySelectorAll(".subgroup-row input:first-child").forEach(input => {
+    const name = input.value.trim();
+    if (name) subgroups.push(name);
+  });
+
+  const rows = document.querySelectorAll("#studentBody tr");
+  rows.forEach(row => {
+    const cell = row.cells[1];
+    if (!cell || !cell.querySelector("select")) return;
+    const currentValue = cell.querySelector("select").value;
+    const select = document.createElement("select");
+    select.style.width = "100%";
+    select.innerHTML = "<option value=''></option>";
+    subgroups.forEach(subgroupName => {
+      const option = document.createElement("option");
+      option.value = subgroupName;
+      option.textContent = subgroupName;
+      select.appendChild(option);
+    });
+    cell.innerHTML = "";
+    cell.appendChild(select);
+    if (currentValue && subgroups.includes(currentValue)) {
+      select.value = currentValue;
+    }
+  });
+}
+
+// Таблица студентов
+function createCell(tag = 'td', content = '', className = '') {
+  const cell = document.createElement(tag);
+  if (content instanceof HTMLElement) cell.appendChild(content);
+  else cell.textContent = content;
+  cell.classList.add("table-cell");
+  if (className) cell.classList.add(className);
+  return cell;
+}
+
+function createInputCell(readOnly = false) {
+  const td = createCell('td');
+  const input = document.createElement('input');
+  input.type = "text";
+  input.style.width = '100%';
+  input.oninput = autoFillGrade;
+  if (readOnly) input.readOnly = true;
+  td.appendChild(input);
+  return td;
+}
+
+function ShowStudentsInDataGridView(studentArray) {
+  const thead = document.querySelector("#studentTable thead tr");
+  const tbody = document.getElementById("studentBody");
+  Array.from(tbody.children).forEach(row => row.remove());
+
+  const headers = Array.from(document.querySelectorAll("#studentTable thead th")).map(th => th.textContent.trim());
+  const hasSubgroupColumn = headers.includes("Подгруппа");
+
+  const subgroups = [];
+  document.querySelectorAll(".subgroup-row input:first-child").forEach(input => {
+    const name = input.value.trim();
+    if (name) subgroups.push(name);
+  });
+
+  studentArray.forEach(student => {
+    const tr = document.createElement("tr");
+    const fioTd = createInputCell(true);
+    fioTd.querySelector('input').value = student.fio;
+    tr.appendChild(fioTd);
+
+    if (hasSubgroupColumn) {
+      const subgroupTd = document.createElement("td");
+      const select = document.createElement("select");
+      select.style.width = "100%";
+      select.innerHTML = "<option value=''></option>";
+      subgroups.forEach(subgroupName => {
+        const option = document.createElement("option");
+        option.value = subgroupName;
+        option.textContent = subgroupName;
+        select.appendChild(option);
+      });
+      subgroupTd.appendChild(select);
+      tr.appendChild(subgroupTd);
+    }
+
+    for (let i = hasSubgroupColumn ? 2 : 1; i < headers.length; i++) {
+      tr.appendChild(createInputCell());
+    }
+
+    tbody.appendChild(tr);
+  });
+  updateThemesRow();
+  updateTableScroll();
+}
+
+function redrawTable() {
+  const headers = Array.from(document.querySelectorAll("#studentTable thead th")).map(th => th.textContent.trim());
+  const hasSubgroupColumn = headers.includes("Подгруппа");
+  const subgroups = [];
+  document.querySelectorAll(".subgroup-row input:first-child").forEach(input => {
+    const name = input.value.trim();
+    if (name) subgroups.push(name);
+  });
+
+  const tbody = document.getElementById("studentBody");
+  Array.from(tbody.children).forEach(row => row.remove());
+
+  students.forEach(student => {
+    const tr = document.createElement("tr");
+    const fioTd = createInputCell(true);
+    fioTd.querySelector('input').value = student.fio;
+    tr.appendChild(fioTd);
+
+    if (hasSubgroupColumn) {
+      const subgroupTd = document.createElement("td");
+      const select = document.createElement("select");
+      select.style.width = "100%";
+      select.innerHTML = "<option value=''></option>";
+      subgroups.forEach(subgroupName => {
+        const option = document.createElement("option");
+        option.value = subgroupName;
+        option.textContent = subgroupName;
+        select.appendChild(option);
+      });
+      subgroupTd.appendChild(select);
+      tr.appendChild(subgroupTd);
+    }
+
+    for (let i = hasSubgroupColumn ? 2 : 1; i < headers.length; i++) {
+      tr.appendChild(createInputCell());
+    }
+
+    tbody.appendChild(tr);
+  });
+  updateThemesRow();
+  updateTableScroll();
+}
+
+function addColumnToTable(headerText) {
+  const theadRow = document.querySelector('#studentTable thead tr');
+  const tbodyRows = document.querySelectorAll('#studentBody tr');
+  const existingHeaders = Array.from(document.querySelectorAll("#studentTable thead th")).map(th => th.textContent.trim());
+  if (existingHeaders.includes(headerText)) return;
+
+  const th = createCell('th', headerText);
+  // Уменьшаем ширину для дат
+  if (/^\d{2}\.\d{2}\.\d{2}$/.test(headerText)) {
+    th.style.minWidth = "80px";
+    th.style.maxWidth = "100px";
+  }
+  theadRow.appendChild(th);
+
+  // Добавляем ячейки в каждую строку
+  tbodyRows.forEach(row => {
+    const td = createCell('td');
+    let cellContent;
+    if (headerText === "Подгруппа") {
+      cellContent = document.createElement("select");
+      cellContent.style.width = "100%";
+      cellContent.innerHTML = "<option value=''></option>";
+      document.querySelectorAll(".subgroup-row input:first-child").forEach(input => {
+        const subgroupName = input.value.trim();
+        if (subgroupName) {
+          const option = document.createElement("option");
+          option.value = subgroupName;
+          option.textContent = subgroupName;
+          cellContent.appendChild(option);
+        }
+      });
+    } else {
+      cellContent = document.createElement("input");
+      cellContent.type = "text";
+      cellContent.style.width = "100%";
+      cellContent.oninput = autoFillGrade;
+    }
+    td.appendChild(cellContent);
+    row.appendChild(td); // Добавляем ячейку в конец строки
+  });
+
+  updateTableScroll();
+  updateThemesRow();
+}
+
+function addTemplateColumn() {
+  const select = document.getElementById("columnTemplateSelect");
+  const selectedValue = select.value;
+  if (!selectedValue) return alert("Выберите шаблон из списка.");
+  const headers = Array.from(document.querySelectorAll("#studentTable thead th")).map(th => th.textContent.trim());
+  if (headers.includes(selectedValue)) return alert(`Столбец "${selectedValue}" уже существует.`);
+  addColumnToTable(selectedValue);
+}
+
+document.getElementById("columnTemplateSelect").addEventListener("change", function () {
+  const selected = this.value;
+  if (selected) document.getElementById("customColumnName").value = selected;
+});
+
+function rebuildTableWithDates() {
+  const thead = document.querySelector("#studentTable thead tr");
+  const tbody = document.getElementById("studentBody");
+
+  // Удаляем существующие столбцы с датами
+  const existingHeaders = Array.from(thead.children);
+  for (let i = existingHeaders.length - 1; i >= 1; i--) {
+    const text = existingHeaders[i].textContent;
+    if (/^\d{2}\.\d{2}\.\d{2}$/.test(text)) thead.removeChild(existingHeaders[i]);
+  }
+
+  // Удаляем соответствующие ячейки в строках
+  Array.from(tbody.rows).forEach(row => {
+    for (let i = row.children.length - 1; i >= 1; i--) {
+      const cellText = row.children[i].textContent;
+      if (/^\d{2}\.\d{2}\.\d{2}$/.test(cellText)) row.removeChild(row.children[i]);
+    }
+  });
+
+  if (!startDate || !endDate) return;
+
+  let currentDate = new Date(startDate);
+  while (currentDate <= endDate) {
+    const day = currentDate.getDay();
+    const formattedDate = formatDate(currentDate);
+    const dateStr = formattedDate.slice(0, 5);
+
+    // Проверяем, является ли день выходным или праздником
+    if (day === 0 || holidays.includes(dateStr)) {
+      currentDate.setDate(currentDate.getDate() + 1);
+      continue;
+    }
+
+    // Добавляем новый столбец с датой
+    addColumnToTable(formattedDate);
+
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  updateTableScroll();
+}
+
+function autoFillGrade(event) {
+  const input = event.target;
+  if (!input) return;
+  let value = input.value.trim().toLowerCase();
+  input.classList.remove("grade-zachet", "grade-nezachet", "grade-5", "grade-4", "grade-3", "grade-2");
+  if (value === "з") {
+    input.value = "зачёт";
+    input.classList.add("grade-zachet");
+  } else if (value === "н") {
+    input.value = "незачёт";
+    input.classList.add("grade-nezachet");
+  } else if (!isNaN(value) && value >= 2 && value <= 5) {
+    input.classList.add(`grade-${value}`);
+  }
+}
+
+function addCustomColumn() {
+  const name = document.getElementById("customColumnName").value.trim();
+  if (!name) return alert("Введите название столбца");
+  addColumnToTable(name);
+}
+
+let deleteButtonsActive = false;
+function resetDeleteButtons() {
+  document.querySelectorAll(".delete-col-btn").forEach(btn => btn.remove());
+  deleteButtonsActive = false;
+}
+
+function deleteCustomColumns() {
+  const headers = document.querySelectorAll("#studentTable thead th");
+  const rows = document.querySelectorAll("#studentBody tr");
+  if (deleteButtonsActive) {
+    resetDeleteButtons();
+    return;
+  }
+  resetDeleteButtons();
+  headers.forEach((th, index) => {
+    if (index === 0) return;
+    const btn = document.createElement("button");
+    btn.textContent = "×";
+    btn.className = "delete-col-btn";
+    const wrapper = document.createElement("div");
+    wrapper.style.position = "relative";
+    wrapper.appendChild(btn);
+    wrapper.appendChild(document.createTextNode(th.textContent));
+    th.innerHTML = "";
+    th.appendChild(wrapper);
+    btn.onclick = () => {
+      Array.from(document.querySelectorAll(`th:nth-child(${index + 1}), td:nth-child(${index + 1})`)).forEach(cell => {
+        cell.classList.add("column-delete-animation");
+      });
+      setTimeout(() => {
+        document.querySelectorAll(`th:nth-child(${index + 1}), td:nth-child(${index + 1})`).forEach(cell => {
+          cell.parentNode.removeChild(cell);
+        });
+        updateTableScroll();
+      }, 300);
+      resetDeleteButtons();
+    };
+  });
+  deleteButtonsActive = true;
+}
+
+function resetTable() {
+  const thead = document.querySelector("#studentTable thead tr");
+  const tbody = document.getElementById("studentBody");
+
+  // Удаляем все столбцы, кроме первого (ФИО)
+  while (thead.children.length > 1) {
+    thead.removeChild(thead.lastChild);
+  }
+
+  // Очищаем все строки студентов
+  Array.from(tbody.children).forEach(row => {
+    // Оставляем только первую ячейку (ФИО), остальные удаляем
+    while (row.children.length > 1) {
+      row.removeChild(row.lastChild);
+    }
+  });
+
+  // Очищаем поля формы
+  document.getElementById("specialty").value = "";
+  document.getElementById("group").value = "";
+  document.getElementById("admissionYear").value = "";
+  document.getElementById("practiceName").value = "";
+  document.getElementById("methodist").value = "";
+  document.getElementById("semester").value = "";
+  document.getElementById("autoCreateDatesToggle").checked = false;
+
+  updateTableScroll();
+  alert("Таблица и форма очищены.");
+}
+
+// Редактирование студентов
+function editStudents() {
+  const group = document.getElementById("group").value;
+  if (!group) return alert("Введите номер группы на главной форме.");
+  const dialog = document.getElementById("studentDialog");
+  const overlay = document.getElementById("overlay");
+  overlay.classList.remove("hidden");
+  overlay.style.opacity = "1";
+  overlay.style.pointerEvents = "auto";
+  dialog.classList.remove("hidden");
+  loadStudentList();
+}
+
+function loadStudentList() {
+  const fileInput = document.getElementById("studentFileInput");
+  const file = fileInput.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const data = new Uint8Array(e.target.result);
+    const workbook = XLSX.read(data, { type: "array" });
+
+    const mainGroup = document.getElementById("group").value.trim();
+    const studyPeriod = document.getElementById("studyPeriod").value.trim();
+
+    // --- ОСНОВНОЕ ИСПРАВЛЕНИЕ ---
+    const sheetName = `${mainGroup}_${studyPeriod.replace("–", "-")}`;
+
+    let worksheet;
+    if (workbook.SheetNames.includes(sheetName)) {
+      worksheet = workbook.Sheets[sheetName];
+    } else {
+      alert("В выбранном файле нет данных для этой группы и учебного года. Будет использован первый лист.");
+      worksheet = workbook.Sheets[workbook.SheetNames[0]];
+    }
+
+    const tbody = document.querySelector("#editStudentTable tbody");
+    tbody.innerHTML = "";
+
+    if (worksheet['!ref']) {
+      const range = XLSX.utils.decode_range(worksheet['!ref']);
+      for (let rowNum = range.s.r + 1; rowNum <= range.e.r; rowNum++) {
+        const cellAddress = XLSX.utils.encode_cell({ r: rowNum, c: 0 });
+        const cell = worksheet[cellAddress];
+        const value = cell ? cell.v : '';
+        if (value && value !== 'ФИО') {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `<td><input type="text" value="${value}" style="width:100%"></td>`;
+          tbody.appendChild(tr);
+        }
+      }
+    }
+
+    window.existingWorkbook = workbook;
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function addStudentRow() {
+  const tbody = document.querySelector("#editStudentTable tbody");
+  const tr = document.createElement("tr");
+  tr.innerHTML = `<td><input type="text" style="width:100%"></td>`;
+  tbody.appendChild(tr);
+  updateThemesRow();
+}
+
+function deleteSelectedRows() {
+  const rows = document.querySelectorAll("#editStudentTable tbody tr");
+  rows.forEach(row => {
+    const firstCell = row.querySelector("td");
+    if (!firstCell) return;
+    let btn = firstCell.querySelector(".delete-row-btn");
+    if (btn) btn.remove();
+    else {
+      btn = document.createElement("button");
+      btn.textContent = "×";
+      btn.className = "delete-row-btn";
+      btn.onclick = () => {
+        row.classList.add("row-delete-animation");
+        setTimeout(() => row.remove(), 300);
+        document.querySelectorAll(".delete-row-btn").forEach(b => b.remove());
+      };
+      firstCell.appendChild(btn);
+    }
+  });
+  updateThemesRow();
+}
+
+window.saveStudentFile = function () {
+  const mainGroup = document.getElementById("group")?.value.trim();
+  const studyPeriod = document.getElementById("studyPeriod")?.value.trim();
+
+  if (!mainGroup || !studyPeriod) {
+    alert("Введите группу и период обучения.");
+    return;
+  }
+
+  // Формируем имя листа (гарантированно одинаковое при сохранении и загрузке)
+  const sheetName = `${mainGroup}_${studyPeriod.replace("–", "-")}`;
+
+  // Собираем список студентов
+  const rows = document.querySelectorAll("#editStudentTable tbody tr");
+  const ws_data = [["ФИО"]]; // Заголовок
+  rows.forEach(row => {
+    const input = row.querySelector("input");
+    const val = input?.value?.trim();
+    if (val && val !== "ФИО") {
+      ws_data.push([val]);
+    }
+  });
+
+  const ws = XLSX.utils.aoa_to_sheet(ws_data);
+
+  let wb;
+
+  // Если уже был открыт файл — используем его
+  if (window.existingWorkbook) {
+    wb = window.existingWorkbook;
+  } else {
+    wb = XLSX.utils.book_new();
+  }
+
+  // Удаляем старый лист, если он есть
+  if (wb.SheetNames.includes(sheetName)) {
+    const index = wb.SheetNames.indexOf(sheetName);
+    if (index !== -1) {
+      wb.SheetNames.splice(index, 1);
+      delete wb.Sheets[sheetName];
+    }
+  }
+
+  // Добавляем новый лист
+  XLSX.utils.book_append_sheet(wb, ws, sheetName);
+  window.existingWorkbook = wb;
+
+  // Сохраняем файл
+  const fileName = `Список_студентов.xlsx`;
+  XLSX.writeFile(wb, fileName);
+};
+
+window.applyStudentList = function () {
+  const rows = document.querySelectorAll("#editStudentTable tbody tr");
+  const studentData = [];
+  rows.forEach(row => {
+    const input = row.querySelector("input");
+    const val = input?.value?.trim();
+    if (val && val !== 'ФИО') studentData.push({ fio: val });
+  });
+
+  ShowStudentsInDataGridView(studentData);
+  closeStudentDialog();
+};
+
+function closeStudentDialog() {
+  const overlay = document.getElementById("overlay");
+  const dialog = document.getElementById("studentDialog");
+  overlay.style.opacity = "0";
+  overlay.style.pointerEvents = "none";
+  setTimeout(() => dialog.classList.add("hidden"), 300);
+}
+
+// Сохранение данных
+function saveData() {
+  const practiceName = document.getElementById("practiceName").value;
+  const group = document.getElementById("group").value;
+  const methodist = document.getElementById("methodist").value;
+  const specialty = document.getElementById("specialty").value;
+  const studyPeriod = document.getElementById("studyPeriod")?.value || "";
+  const semester = document.getElementById("semester").value.trim();
+  const dateRange = document.getElementById("dateRange").value;
+  const isSummaryMode = document.getElementById("summaryModeToggle").checked;
+
+  const ws_data = [];
+
+  // === Заголовки сводной/обычной формы ===
+  if (isSummaryMode) {
+    if (specialty) ws_data.push(["Специальность:", specialty]);
+    if (group) ws_data.push(["Группа:", group]);
+    if (studyPeriod) ws_data.push(["Период обучения:", studyPeriod]);
+  } else {
+    if (group) ws_data.push(["Группа:", group]);
+    if (specialty) ws_data.push(["Специальность:", specialty]);
+    if (methodist) ws_data.push(["Методист:", methodist]);
+    if (semester) ws_data.push(["Семестр:", semester]);
+    if (studyPeriod) ws_data.push(["Период обучения:", studyPeriod]);
+    if (practiceName) ws_data.push(["Название практики:", practiceName]);
+    if (dateRange) ws_data.push(["Дата прохождения:", dateRange]);
+  }
+
+  // === Подгруппы (если есть) ===
+  const headers = Array.from(document.querySelectorAll("#studentTable thead th")).map(th => th.textContent.trim());
+  const hasSubgroupColumn = headers.includes("Подгруппа");
+
+  if (hasSubgroupColumn) {
+    ws_data.push([], ["--- Подгруппы ---"]);
+    ws_data.push(["Подгруппа", "Методист"]);
+    document.querySelectorAll(".subgroup-row").forEach(row => {
+      const nameInput = row.querySelector("input:nth-child(1)");
+      const methodistInput = row.querySelector("input:nth-child(2)");
+      const nameValue = nameInput?.value?.trim() || '';
+      const methodistValue = methodistInput?.value?.trim() || '';
+      if (nameValue) {
+        ws_data.push([nameValue, methodistValue]);
+      }
+    });
+  }
+
+  // === Пустая строка перед основной таблицей (только одна!) ===
+  if (ws_data.length > 0 && students.length > 0) {
+    ws_data.push([]); // Одна пустая строка
+  }
+
+  // === Заголовки таблицы студентов ===
+  const studentHeaders = [];
+  const theadHeaders = Array.from(document.querySelectorAll("#studentTable thead th")).map(th => th.innerText.trim());
+
+  studentHeaders.push(...theadHeaders);
+  ws_data.push(studentHeaders);
+
+  // === Данные студентов ===
+  const rows = document.querySelectorAll("#studentBody tr");
+  rows.forEach(row => {
+    const cells = [];
+    const tds = row.querySelectorAll("td, th");
+
+    tds.forEach(cell => {
+      let value = "";
+
+      // Если инпут — берём его значение
+      const input = cell.querySelector("input");
+      const select = cell.querySelector("select");
+
+      if (input) {
+        value = input.value.trim();
+      } else if (select) {
+        value = select.options[select.selectedIndex]?.text.trim() || "";
+      } else {
+        value = cell.textContent.trim();
+      }
+
+      cells.push(value);
+    });
+
+    ws_data.push(cells);
+  });
+
+  // === Строка с темами (если включена) ===
+if (document.getElementById("addThemesToggle")?.checked) {
+  const themesRow = ["Темы"];
+  const themeInputs = document.querySelectorAll(".themes-row td input");
+  themeInputs.forEach(input => {
+    themesRow.push(input.value.trim());
+  });
+}
+
+  // === Экспорт в Excel ===
+  try {
+    const wb = XLSX.utils.book_new();
+    const sheetName = `Группа_${group}_${studyPeriod.split("–")[0]}`;
+    const ws = XLSX.utils.aoa_to_sheet(ws_data);
+    XLSX.utils.book_append_sheet(wb, ws, sheetName);
+    const fileName = isSummaryMode ? `Сводная_ведомость.xlsx` : `Практика_${practiceName}_${group}.xlsx`;
+    XLSX.writeFile(wb, fileName);
+  } catch (e) {
+    console.error("Ошибка при сохранении файла:", e);
+    alert("Произошла ошибка при сохранении файла. Проверьте консоль.");
+  }
+}
+
+function updateTableScroll() {
+  const table = document.getElementById("studentTable");
+  const container = table.closest(".table-container");
+  if (!container) return;
+  table.style.minWidth = "max-content";
+  requestAnimationFrame(() => {
+    container.style.overflowX = table.offsetWidth > container.offsetWidth ? "auto" : "hidden";
+  });
+}
+
+//--Сводная ведомость--//
+document.getElementById("summaryModeToggle").addEventListener("change", function () {
+  const summaryMode = this.checked;
+
+  // Скрываем или показываем только те поля, у которых нет класса summary-keep
+  document.querySelectorAll(".field-container").forEach(container => {
+    if (!container.classList.contains("summary-keep")) {
+      container.style.display = summaryMode ? "none" : "";
+    }
+  });
+});
+
+//--Темы занятий--//
+let dateThemes = {};
+function addThemesRow() {
+  const tbody = document.getElementById("studentBody");
+
+  // Удаляем предыдущую строку тем, если она есть
+  removeThemesRow();
+
+  const newRow = document.createElement("tr");
+  newRow.classList.add("themes-row");
+
+  const firstCell = createCell("td", "Темы");
+  newRow.appendChild(firstCell);
+
+  const headers = Array.from(document.querySelectorAll("#studentTable thead th")).map(th => th.textContent.trim());
+
+  // Добавляем ячейки с инпутами для тем по датам
+  headers.slice(1).forEach(dateStr => {
+    const td = createCell("td");
+    const input = document.createElement("input");
+    input.type = "text";
+    input.style.width = "100%";
+    input.placeholder = "Тема";
+
+    // Подставляем значение из dateThemes, если оно есть
+    if (dateThemes[dateStr]) {
+      input.value = dateThemes[dateStr];
+    }
+
+    // Обновляем хранилище тем при вводе
+    input.oninput = () => {
+      dateThemes[dateStr] = input.value;
+    };
+
+    td.appendChild(input);
+    newRow.appendChild(td);
+  });
+
+  // Добавляем строку тем в конец таблицы
+  tbody.appendChild(newRow);
+}
+function removeThemesRow() {
+  const existingThemesRow = document.querySelector(".themes-row");
+  if (existingThemesRow) {
+    existingThemesRow.remove();
+  }
+}
+document.getElementById("addThemesToggle").addEventListener("change", function () {
+  if (this.checked) {
+    addThemesRow(); // добавляем строку тем
+  } else {
+    removeThemesRow(); // удаляем строку тем
+  }
+});
+function updateThemesRow() {
+  const themesCheckbox = document.getElementById("addThemesToggle");
+  if (themesCheckbox?.checked) {
+    removeThemesRow(); // удаляем старую строку
+    const headers = Array.from(document.querySelectorAll("#studentTable thead th")).map(th => th.innerText);
+    addThemesRow(headers); // передаем актуальные заголовки
+  }
+}
+
+function saveToWord() {
+  const table = document.getElementById("studentTable");
+  // Клонируем таблицу, чтобы не изменять оригинал
+  const copyTable = table.cloneNode(true);
+
+  // Удаляем инпуты и селекты, заменяя их на значения
+  Array.from(copyTable.querySelectorAll("input, select")).forEach(element => {
+    if (element.tagName === "INPUT") {
+      element.replaceWith(document.createTextNode(element.value.trim()));
+    } else if (element.tagName === "SELECT") {
+      const text = element.options[element.selectedIndex]?.text.trim() || "";
+      element.replaceWith(document.createTextNode(text));
+    }
+  });
+
+  // Убираем лишние элементы (например, кнопки удаления строк)
+  const buttons = copyTable.querySelectorAll("button");
+  buttons.forEach(button => button.remove());
+
+  // === Получаем данные из формы ===
+  const practiceName = document.getElementById("practiceName").value.trim();
+  const group = document.getElementById("group").value.trim();
+  const methodist = document.getElementById("methodist").value.trim();
+  const specialty = document.getElementById("specialty").value.trim();
+  const semester = document.getElementById("semester").value.trim();
+  const studyPeriod = document.getElementById("studyPeriod").value.trim();
+  const dateRange = document.getElementById("dateRange").value.trim();
+
+  // Формируем заголовок документа
+  const metadata = [];
+  if (group) metadata.push(`Группа: ${group}`);
+  if (specialty) metadata.push(`Специальность: ${specialty}`);
+  if (methodist) metadata.push(`Методист: ${methodist}`);
+  if (semester) metadata.push(`Семестр: ${semester}`);
+  if (studyPeriod) metadata.push(`Период обучения: ${studyPeriod}`);
+  if (dateRange) metadata.push(`Дата прохождения: ${dateRange}`);
+
+  const headerHTML = `
+    <h2>Ведомость по практике</h2>
+    ${metadata.map(line => `<p><strong>${line}</strong></p>`).join("")}
+    <hr/>
+    <h3>Список студентов</h3>
+  `.trim();
+
+  // === Удаляем столбец "Подгруппа" из копии таблицы ===
+  const headers = copyTable.querySelectorAll("thead th");
+  let subgroupIndex = -1;
+  headers.forEach((th, index) => {
+    if (th.textContent.trim() === "Подгруппа") {
+      subgroupIndex = index;
+    }
+  });
+  if (subgroupIndex !== -1) {
+    // Удаляем столбец из thead
+    Array.from(copyTable.querySelectorAll("thead tr")).forEach(tr => {
+      const cells = tr.children;
+      if (cells[subgroupIndex]) cells[subgroupIndex].remove();
+    });
+    // Удаляем столбец из tbody
+    Array.from(copyTable.querySelectorAll("tbody tr")).forEach(tr => {
+      const cells = tr.children;
+      if (cells[subgroupIndex]) cells[subgroupIndex].remove();
+    });
+  }
+
+  // Создаем контейнер для данных
+  const container = document.createElement("div");
+  container.innerHTML = headerHTML + copyTable.outerHTML;
+
+  // === Добавляем данные подгрупп ===
+  const subgroups = [];
+  document.querySelectorAll(".subgroup-row").forEach(row => {
+    const nameInput = row.querySelector("input:nth-child(1)");
+    const methodistInput = row.querySelector("input:nth-child(2)");
+    const nameValue = nameInput?.value?.trim() || '';
+    const methodistValue = methodistInput?.value?.trim() || '';
+    if (nameValue) {
+      subgroups.push({ name: nameValue, methodist: methodistValue });
+    }
+  });
+
+  if (subgroups.length > 0) {
+    const subgroupHeader = "<h3>Подгруппы</h3>";
+    const subgroupTable = `
+      <table border="1" style="border-collapse: collapse; width: 50%;">
+        <tr>
+          <th>Название</th>
+          <th>Методист</th>
+        </tr>
+        ${subgroups.map(subgroup => `
+          <tr>
+            <td>${subgroup.name}</td>
+            <td>${subgroup.methodist}</td>
+          </tr>
+        `).join("")}
+      </table>
+    `;
+    container.innerHTML += subgroupHeader + subgroupTable;
+  }
+
+  // === Добавляем таблицу с темами занятий ===
+  const themesRow = document.querySelector(".themes-row");
+  if (themesRow) {
+    const themeHeaders = Array.from(themesRow.querySelectorAll("td input")).map(input => input.placeholder || input.value.trim());
+    const themeDates = Array.from(document.querySelectorAll("#studentTable thead th")).slice(1).filter(th => /^\d{2}\.\d{2}\.\d{2}$/.test(th.textContent.trim())).map(th => th.textContent.trim());
+
+    const themesHeader = "<h3>Темы занятий</h3>";
+    const themesTableRows = themeDates.map((date, i) => `
+      <tr>
+        <td>${date}</td>
+        <td>${themeHeaders[i] || ""}</td>
+      </tr>
+    `).join("");
+
+    const themesTable = `
+      <table border="1" style="border-collapse: collapse; width: 70%;">
+        <tr>
+          <th>Дата</th>
+          <th>Тема</th>
+        </tr>
+        ${themesTableRows}
+      </table>
+    `;
+    container.innerHTML += themesHeader + themesTable;
+  }
+
+  // Добавляем стили для таблицы
+  container.style.fontFamily = "Arial, sans-serif";
+  container.style.fontSize = "12pt";
+
+  // Применяем стили к таблице
+  const tableElement = container.querySelector("table");
+  if (tableElement) {
+    tableElement.style.borderCollapse = "collapse";
+    tableElement.style.border = "1px solid black";
+    // Применяем стили к заголовкам таблицы
+    Array.from(container.querySelectorAll("th")).forEach(th => {
+      th.style.backgroundColor = "#f0f0f0"; // Серый фон для заголовков
+      th.style.fontWeight = "bold"; // Жирный шрифт
+      th.style.padding = "8px"; // Поля вокруг текста
+      th.style.border = "1px solid black"; // Границы
+    });
+    // Применяем стили к ячейкам таблицы
+    Array.from(container.querySelectorAll("td")).forEach(td => {
+      td.style.padding = "8px"; // Поля вокруг текста
+      td.style.border = "1px solid black"; // Границы
+      td.style.textAlign = "center"; // Выравнивание по центру
+    });
+  }
+
+  // Преобразуем HTML в Word-документ
+  const converted = htmlDocx.asBlob(container.innerHTML, {
+    orientation: 'portrait',
+    charset: 'utf-8' // ← ВАЖНО: указываем кодировку
+  });
+
+  // Сохраняем файл
+  const isSummaryMode = document.getElementById("summaryModeToggle").checked;
+  const fileName = isSummaryMode
+    ? `Сводная_ведомость.docx`
+    : `Практика_${practiceName}_${group}.docx`;
+  saveAs(converted, fileName);
+}
+</script>
